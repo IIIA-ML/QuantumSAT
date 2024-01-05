@@ -1,0 +1,64 @@
+c [MSE2022] -- begin -- [MSE2022]
+0.00/0.00	c
+0.00/0.00	c NuWLS based on TT-Open-WBO-Inc:	 an Anytime MaxSAT Solver --- based on Glucose4.1 (core version)
+0.00/0.00	c Version:	 MaxSAT Evaluation 2021
+0.00/0.00	c Author of NuWLS:	 Yi Chu, Xiang He
+0.00/0.00	c Author of TT-Open-WBO-Inc:	 Alexander Nadel
+0.00/0.00	c Authors of the baseline solver Open-WBO-Inc:	 Saurabh Joshi, Prateek Kumar, Ruben Martins, Sukrut Rao
+0.00/0.00	c WARNING: for repeatability, setting FPU to use double precision
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c ========================================[ Problem Statistics ]===========================================
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c |  Problem Format:             MaxSAT                                                                   |
+0.00/0.00	c |  Problem Type:           Unweighted                                                                   |
+0.00/0.00	c |  Number of variables:            48                                                                   |
+0.00/0.00	c |  Number of hard clauses:          0                                                                   |
+0.00/0.00	c |  Number of soft clauses:        380                                                                   |
+0.00/0.00	c |  Number of cardinality:           0                                                                   |
+0.00/0.00	c |  Number of PB :                   0                                                                   |
+0.00/0.00	c |  Parse time:                   0.00 s                                                                 |
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c | best-alg-selector overriden target_vars_bump_val to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_model_per_sec_thr to 2, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_mutation_classes to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_chrono to 100, since it hadn't been set by the user |
+0.00/0.01	c ==========================================[ Solver Settings ]============================================
+0.00/0.01	c |                                                                                                       |
+0.00/0.01	c |  Algorithm:                     OBV                                                                   |
+0.00/0.01	c |  Cardinality Encoding:       Modulo Totalizer                                                         |
+0.00/0.01	c |  Limit number conflicts:       1000                                                                   |
+0.00/0.01	c |  Limit number iterations: 2147483647                                                                   |
+0.00/0.01	c |  Global limit number conflicts:   F                                                                   |
+0.00/0.01	c |                                                                                                       |
+0.00/0.01	c Mrs. Beaver incomplete stage
+0.00/0.01	o 79
+0.00/0.01	c total_lit_count 808
+0.00/0.01	c before build neighbor
+0.00/0.01	c build instime is 0
+0.00/0.01	c using neighbor 
+0.00/0.01	c build NuWLS instance done!
+0.00/0.01	c changing to NuWLS solver!!!
+0.00/0.01	c problem weighted = 0
+0.00/0.01	o 79
+0.00/0.01	o 74
+0.00/0.01	o 70
+0.00/0.01	o 68
+0.00/0.01	o 66
+0.00/0.01	o 64
+0.00/0.01	o 62
+0.00/0.01	o 59
+0.00/0.01	o 58
+0.00/0.01	o 57
+0.00/0.01	o 56
+0.00/0.01	o 55
+0.00/0.01	o 54
+0.00/0.01	o 53
+0.00/0.01	o 52
+0.00/0.01	o 51
+0.00/0.01	o 50
+0.00/0.01	o 49
+0.00/0.01	o 48
+0.04/0.04	s SATISFIABLE
+0.04/0.04	o 48 
+0.04/0.04	v 011111111000101001111000001000010000100011110010
+c [MSE2022] -- end -- [MSE2022]

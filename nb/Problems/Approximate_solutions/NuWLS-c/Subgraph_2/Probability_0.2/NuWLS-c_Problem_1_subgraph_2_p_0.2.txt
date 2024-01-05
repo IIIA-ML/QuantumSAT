@@ -1,0 +1,126 @@
+c [MSE2022] -- begin -- [MSE2022]
+0.00/0.00	c
+0.00/0.00	c NuWLS based on TT-Open-WBO-Inc:	 an Anytime MaxSAT Solver --- based on Glucose4.1 (core version)
+0.00/0.00	c Version:	 MaxSAT Evaluation 2021
+0.00/0.00	c Author of NuWLS:	 Yi Chu, Xiang He
+0.00/0.00	c Author of TT-Open-WBO-Inc:	 Alexander Nadel
+0.00/0.00	c Authors of the baseline solver Open-WBO-Inc:	 Saurabh Joshi, Prateek Kumar, Ruben Martins, Sukrut Rao
+0.00/0.00	c WARNING: for repeatability, setting FPU to use double precision
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c ========================================[ Problem Statistics ]===========================================
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c |  Problem Format:             MaxSAT                                                                   |
+0.00/0.00	c |  Problem Type:           Unweighted                                                                   |
+0.00/0.00	c |  Number of variables:           215                                                                   |
+0.00/0.00	c |  Number of hard clauses:          0                                                                   |
+0.00/0.00	c |  Number of soft clauses:       2109                                                                   |
+0.00/0.00	c |  Number of cardinality:           0                                                                   |
+0.00/0.00	c |  Number of PB :                   0                                                                   |
+0.00/0.00	c |  Parse time:                   0.00 s                                                                 |
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c | best-alg-selector overriden target_vars_bump_val to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_model_per_sec_thr to 2, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_mutation_classes to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_chrono to 100, since it hadn't been set by the user |
+0.00/0.00	c ==========================================[ Solver Settings ]============================================
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c |  Algorithm:                     OBV                                                                   |
+0.00/0.00	c |  Cardinality Encoding:       Modulo Totalizer                                                         |
+0.00/0.00	c |  Limit number conflicts:       1000                                                                   |
+0.00/0.00	c |  Limit number iterations: 2147483647                                                                   |
+0.00/0.00	c |  Global limit number conflicts:   F                                                                   |
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c Mrs. Beaver incomplete stage
+0.00/0.00	o 447
+0.00/0.00	c total_lit_count 4433
+0.00/0.00	c before build neighbor
+0.00/0.00	c build instime is 0
+0.00/0.00	c using neighbor 
+0.00/0.00	c build NuWLS instance done!
+0.00/0.00	c changing to NuWLS solver!!!
+0.00/0.00	c problem weighted = 0
+0.00/0.00	o 447
+0.00/0.00	o 440
+0.00/0.00	o 434
+0.00/0.00	o 428
+0.00/0.00	o 423
+0.00/0.00	o 418
+0.00/0.00	o 413
+0.00/0.00	o 409
+0.00/0.00	o 404
+0.00/0.00	o 400
+0.00/0.00	o 396
+0.00/0.00	o 392
+0.00/0.00	o 389
+0.00/0.00	o 385
+0.00/0.00	o 382
+0.00/0.00	o 379
+0.00/0.00	o 376
+0.00/0.00	o 372
+0.00/0.00	o 369
+0.00/0.00	o 366
+0.00/0.00	o 364
+0.00/0.00	o 362
+0.00/0.00	o 360
+0.00/0.00	o 358
+0.00/0.00	o 356
+0.00/0.00	o 354
+0.00/0.00	o 351
+0.00/0.00	o 349
+0.00/0.00	o 347
+0.00/0.00	o 345
+0.00/0.00	o 343
+0.00/0.00	o 341
+0.00/0.00	o 337
+0.00/0.00	o 335
+0.00/0.00	o 333
+0.00/0.00	o 331
+0.00/0.00	o 329
+0.00/0.00	o 327
+0.00/0.00	o 326
+0.00/0.00	o 324
+0.00/0.00	o 322
+0.00/0.00	o 321
+0.00/0.00	o 320
+0.00/0.00	o 319
+0.00/0.00	o 318
+0.00/0.00	o 317
+0.00/0.00	o 314
+0.00/0.00	o 312
+0.00/0.00	o 310
+0.00/0.00	o 309
+0.00/0.00	o 308
+0.00/0.00	o 307
+0.00/0.00	o 305
+0.00/0.00	o 304
+0.00/0.00	o 303
+0.00/0.00	o 302
+0.00/0.00	o 301
+0.00/0.00	o 300
+0.00/0.00	o 299
+0.00/0.00	o 298
+0.00/0.00	o 297
+0.00/0.00	o 296
+0.00/0.00	o 294
+0.00/0.00	o 293
+0.00/0.00	o 292
+0.00/0.00	o 291
+0.00/0.00	o 289
+0.00/0.00	o 288
+0.00/0.00	o 286
+0.00/0.00	o 284
+0.00/0.00	o 281
+0.00/0.00	o 280
+0.00/0.00	o 279
+0.00/0.00	o 278
+0.00/0.00	o 277
+0.00/0.00	o 276
+0.00/0.00	o 275
+0.00/0.00	o 274
+0.00/0.00	o 273
+0.00/0.00	o 272
+0.00/0.01	o 271
+0.01/0.02	s SATISFIABLE
+0.01/0.02	o 271 
+0.01/0.02	v 10000110011110001001011001010111100111000101101011110110110110110110001000110001111000001111111110001101011010111101011110110001111100100100001100001000001111001101100111110000000001111001100011101011011010011101101
+c [MSE2022] -- end -- [MSE2022]

@@ -1,0 +1,1847 @@
+c [MSE2022] -- begin -- [MSE2022]
+0.00/0.00	c
+0.00/0.00	c NuWLS based on TT-Open-WBO-Inc:	 an Anytime MaxSAT Solver --- based on Glucose4.1 (core version)
+0.00/0.00	c Version:	 MaxSAT Evaluation 2021
+0.00/0.00	c Author of NuWLS:	 Yi Chu, Xiang He
+0.00/0.00	c Author of TT-Open-WBO-Inc:	 Alexander Nadel
+0.00/0.00	c Authors of the baseline solver Open-WBO-Inc:	 Saurabh Joshi, Prateek Kumar, Ruben Martins, Sukrut Rao
+0.00/0.00	c WARNING: for repeatability, setting FPU to use double precision
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c ========================================[ Problem Statistics ]===========================================
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c |  Problem Format:             MaxSAT                                                                   |
+0.00/0.00	c |  Problem Type:           Unweighted                                                                   |
+0.00/0.00	c |  Number of variables:           215                                                                   |
+0.00/0.00	c |  Number of hard clauses:          0                                                                   |
+0.00/0.00	c |  Number of soft clauses:       2081                                                                   |
+0.00/0.00	c |  Number of cardinality:           0                                                                   |
+0.00/0.00	c |  Number of PB :                   0                                                                   |
+0.00/0.00	c |  Parse time:                   0.00 s                                                                 |
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c | best-alg-selector overriden target_vars_bump_val to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_model_per_sec_thr to 2, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_mutation_classes to 0, since it hadn't been set by the user |
+0.00/0.00	c | best-alg-selector overriden ms_chrono to 100, since it hadn't been set by the user |
+0.00/0.00	c ==========================================[ Solver Settings ]============================================
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c |  Algorithm:                     OBV                                                                   |
+0.00/0.00	c |  Cardinality Encoding:       Modulo Totalizer                                                         |
+0.00/0.00	c |  Limit number conflicts:       1000                                                                   |
+0.00/0.00	c |  Limit number iterations: 2147483647                                                                   |
+0.00/0.00	c |  Global limit number conflicts:   F                                                                   |
+0.00/0.00	c |                                                                                                       |
+0.00/0.00	c Mrs. Beaver incomplete stage
+0.00/0.00	o 434
+0.00/0.00	c total_lit_count 4377
+0.00/0.00	c before build neighbor
+0.00/0.00	c build instime is 0
+0.00/0.00	c using neighbor 
+0.00/0.00	c build NuWLS instance done!
+0.00/0.00	c changing to NuWLS solver!!!
+0.00/0.00	c problem weighted = 0
+0.00/0.00	o 434
+0.00/0.00	o 425
+0.00/0.00	o 418
+0.00/0.00	o 412
+0.00/0.00	o 407
+0.00/0.00	o 402
+0.00/0.00	o 397
+0.00/0.00	o 392
+0.00/0.00	o 387
+0.00/0.00	o 382
+0.00/0.00	o 378
+0.00/0.00	o 374
+0.00/0.00	o 370
+0.00/0.00	o 366
+0.00/0.00	o 363
+0.00/0.00	o 360
+0.00/0.00	o 357
+0.00/0.00	o 354
+0.00/0.00	o 351
+0.00/0.00	o 348
+0.00/0.00	o 345
+0.00/0.00	o 342
+0.00/0.00	o 339
+0.00/0.00	o 337
+0.00/0.00	o 334
+0.00/0.00	o 332
+0.00/0.00	o 330
+0.00/0.00	o 328
+0.00/0.00	o 326
+0.00/0.00	o 324
+0.00/0.00	o 322
+0.00/0.00	o 320
+0.00/0.00	o 319
+0.00/0.00	o 317
+0.00/0.00	o 316
+0.00/0.00	o 313
+0.00/0.00	o 312
+0.00/0.00	o 310
+0.00/0.00	o 309
+0.00/0.00	o 308
+0.00/0.00	o 306
+0.00/0.00	o 305
+0.00/0.00	o 304
+0.00/0.00	o 303
+0.00/0.00	o 302
+0.00/0.00	o 301
+0.00/0.00	o 300
+0.00/0.00	o 298
+0.00/0.00	o 297
+0.00/0.00	o 296
+0.00/0.00	o 295
+0.00/0.00	o 294
+0.00/0.00	o 293
+0.00/0.00	o 292
+0.00/0.00	o 291
+0.00/0.00	o 289
+0.00/0.00	o 288
+0.00/0.00	o 287
+0.00/0.00	o 286
+0.00/0.00	o 285
+0.00/0.01	o 284
+0.00/0.01	o 283
+0.00/0.01	o 282
+0.00/0.01	o 281
+3.29/3.30	c nuwls search done!
+3.29/3.30	o 281
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #1
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #2
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #3
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #4
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #5
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #6
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #7
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #8
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #9
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #10
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #11
+12.99/13.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.00	c Iteration #12
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #13
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #14
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #15
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #16
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #17
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #18
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #19
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #20
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #21
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #22
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #23
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #24
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #25
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #26
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #27
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #28
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #29
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #30
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #31
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #32
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #33
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #34
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #35
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #36
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #37
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #38
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #39
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #40
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #41
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #42
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #43
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #44
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #45
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #46
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #47
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #48
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #49
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #50
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+12.99/13.01	c Iteration #51
+12.99/13.01	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #52
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #53
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #54
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #55
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #56
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #57
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #58
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #59
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #60
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #61
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #62
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #63
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #64
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #65
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #66
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #67
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #68
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #69
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #70
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #71
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #72
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #73
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #74
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #75
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #76
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #77
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #78
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #79
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #80
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #81
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #82
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #83
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #84
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #85
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #86
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #87
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #88
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #89
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #90
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #91
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #92
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #93
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #94
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #95
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #96
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #97
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #98
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #99
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #100
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #101
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #102
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #103
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #104
+27.69/27.76	c Predicted size is 1165360 vs. the size-based limit 1000000
+27.69/27.76	c Iteration #105
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #106
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #107
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #108
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #109
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #110
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #111
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #112
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #113
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #114
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #115
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #116
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #117
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #118
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #119
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #120
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #121
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #122
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #123
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #124
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #125
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #126
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #127
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #128
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #129
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #130
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #131
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #132
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #133
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #134
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #135
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #136
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #137
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #138
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #139
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #140
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #141
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #142
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #143
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #144
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #145
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #146
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #147
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #148
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #149
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #150
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #151
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #152
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #153
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #154
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #155
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #156
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+44.27/44.31	c Iteration #157
+44.27/44.31	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #158
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #159
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #160
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #161
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #162
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #163
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #164
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #165
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #166
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #167
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #168
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #169
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #170
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #171
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #172
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #173
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #174
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #175
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #176
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #177
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #178
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #179
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #180
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #181
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #182
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #183
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #184
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #185
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #186
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #187
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #188
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #189
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #190
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #191
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #192
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #193
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #194
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #195
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #196
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #197
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #198
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #199
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #200
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #201
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #202
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #203
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #204
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #205
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #206
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #207
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #208
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #209
+60.43/60.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+60.43/60.55	c Iteration #210
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #211
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #212
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #213
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #214
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #215
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #216
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #217
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #218
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #219
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #220
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #221
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #222
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #223
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #224
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #225
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #226
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #227
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #228
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #229
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #230
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #231
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #232
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #233
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #234
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #235
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #236
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #237
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #238
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #239
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #240
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #241
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #242
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #243
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #244
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #245
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #246
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #247
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #248
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #249
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #250
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #251
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #252
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #253
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #254
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #255
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #256
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #257
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #258
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #259
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #260
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #261
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+78.33/78.43	c Iteration #262
+78.33/78.43	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #263
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #264
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #265
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #266
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #267
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #268
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #269
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #270
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #271
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #272
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #273
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #274
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #275
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #276
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #277
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #278
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #279
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #280
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #281
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #282
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #283
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #284
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #285
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #286
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #287
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #288
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #289
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #290
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #291
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #292
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #293
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #294
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #295
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #296
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #297
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #298
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #299
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #300
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #301
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #302
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #303
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #304
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #305
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #306
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #307
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #308
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #309
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #310
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #311
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #312
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #313
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #314
+96.04/96.12	c Predicted size is 1165360 vs. the size-based limit 1000000
+96.04/96.12	c Iteration #315
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #316
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #317
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #318
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #319
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #320
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #321
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #322
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #323
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #324
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #325
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #326
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #327
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #328
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #329
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #330
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #331
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #332
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #333
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #334
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #335
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #336
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #337
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #338
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #339
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #340
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #341
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #342
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #343
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #344
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #345
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #346
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #347
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #348
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #349
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #350
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #351
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #352
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #353
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #354
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #355
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #356
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #357
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #358
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #359
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #360
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #361
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #362
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #363
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #364
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #365
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #366
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+114.81/114.91	c Iteration #367
+114.81/114.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #368
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #369
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #370
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #371
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #372
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #373
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #374
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #375
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #376
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #377
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #378
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #379
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #380
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #381
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #382
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #383
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #384
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #385
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #386
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #387
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #388
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #389
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #390
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #391
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #392
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #393
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #394
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #395
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #396
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #397
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #398
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #399
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #400
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #401
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #402
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #403
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #404
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #405
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #406
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #407
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #408
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #409
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #410
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #411
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #412
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #413
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #414
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #415
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #416
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #417
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #418
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #419
+132.12/132.28	c Predicted size is 1165360 vs. the size-based limit 1000000
+132.12/132.28	c Iteration #420
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #421
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #422
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #423
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #424
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #425
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #426
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #427
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #428
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #429
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #430
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #431
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #432
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #433
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #434
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #435
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #436
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #437
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #438
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #439
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #440
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #441
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #442
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #443
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #444
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #445
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #446
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #447
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #448
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #449
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #450
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #451
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #452
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #453
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #454
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #455
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #456
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #457
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #458
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #459
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #460
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #461
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #462
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #463
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #464
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #465
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #466
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #467
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #468
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #469
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #470
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #471
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+150.80/150.93	c Iteration #472
+150.80/150.93	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #473
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #474
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #475
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #476
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #477
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #478
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #479
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #480
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #481
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #482
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #483
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #484
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #485
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #486
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #487
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #488
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #489
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #490
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #491
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #492
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #493
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #494
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #495
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #496
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #497
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #498
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #499
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #500
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #501
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #502
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #503
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #504
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #505
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #506
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #507
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #508
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #509
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #510
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #511
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #512
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #513
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #514
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #515
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #516
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #517
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #518
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #519
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #520
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #521
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #522
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #523
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #524
+167.82/168.09	c Predicted size is 1165360 vs. the size-based limit 1000000
+167.82/168.09	c Iteration #525
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #526
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #527
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #528
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #529
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #530
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #531
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #532
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #533
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #534
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #535
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #536
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #537
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #538
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #539
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #540
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #541
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #542
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #543
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #544
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #545
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #546
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #547
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #548
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #549
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #550
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #551
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #552
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #553
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #554
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #555
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #556
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #557
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #558
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #559
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #560
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #561
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #562
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #563
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #564
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #565
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #566
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #567
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #568
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #569
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #570
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #571
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #572
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #573
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #574
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #575
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #576
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+187.12/187.39	c Iteration #577
+187.12/187.39	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #578
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #579
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #580
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #581
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #582
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #583
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #584
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #585
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #586
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #587
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #588
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #589
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #590
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #591
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #592
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #593
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #594
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #595
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #596
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #597
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #598
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #599
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #600
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #601
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #602
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #603
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #604
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #605
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #606
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #607
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #608
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #609
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #610
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #611
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #612
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #613
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #614
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #615
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #616
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #617
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #618
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #619
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #620
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #621
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #622
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #623
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #624
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #625
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #626
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #627
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #628
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #629
+205.50/205.72	c Predicted size is 1165360 vs. the size-based limit 1000000
+205.50/205.72	c Iteration #630
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #631
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #632
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #633
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #634
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #635
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #636
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #637
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #638
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #639
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #640
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #641
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #642
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #643
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #644
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #645
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #646
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #647
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #648
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #649
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #650
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #651
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #652
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #653
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #654
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #655
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #656
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #657
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #658
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #659
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #660
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #661
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #662
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #663
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #664
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #665
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #666
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #667
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #668
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #669
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #670
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #671
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #672
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #673
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #674
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #675
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #676
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #677
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #678
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #679
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #680
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #681
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+224.68/224.91	c Iteration #682
+224.68/224.91	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #683
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #684
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #685
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #686
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #687
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #688
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #689
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #690
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #691
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #692
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #693
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #694
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #695
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #696
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #697
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #698
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #699
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #700
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #701
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #702
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #703
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #704
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #705
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #706
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #707
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #708
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #709
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #710
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #711
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #712
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #713
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #714
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #715
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #716
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #717
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #718
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #719
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #720
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #721
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #722
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #723
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #724
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #725
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #726
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #727
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #728
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #729
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #730
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #731
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #732
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #733
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #734
+246.65/246.99	c Predicted size is 1165360 vs. the size-based limit 1000000
+246.65/246.99	c Iteration #735
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #736
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #737
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #738
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #739
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #740
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #741
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #742
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #743
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #744
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #745
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #746
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #747
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #748
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #749
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #750
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #751
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #752
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #753
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #754
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #755
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #756
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #757
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #758
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #759
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #760
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #761
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #762
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #763
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #764
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #765
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #766
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #767
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #768
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #769
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #770
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #771
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #772
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #773
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #774
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #775
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #776
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #777
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #778
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #779
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #780
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #781
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #782
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #783
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #784
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #785
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #786
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+267.24/267.55	c Iteration #787
+267.24/267.55	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #788
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #789
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #790
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #791
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #792
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #793
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #794
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #795
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #796
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #797
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #798
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #799
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #800
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #801
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #802
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #803
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #804
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #805
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #806
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #807
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #808
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #809
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #810
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #811
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #812
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #813
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #814
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #815
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #816
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #817
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #818
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #819
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #820
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #821
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #822
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #823
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #824
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #825
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #826
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #827
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #828
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #829
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #830
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #831
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #832
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #833
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #834
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #835
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #836
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #837
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #838
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #839
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+289.15/289.42	c Iteration #840
+289.15/289.42	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #841
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #842
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #843
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #844
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #845
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #846
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #847
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #848
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #849
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #850
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #851
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #852
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #853
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #854
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #855
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #856
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #857
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #858
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #859
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #860
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #861
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #862
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #863
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #864
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #865
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #866
+299.74/300.00	c Predicted size is 1165360 vs. the size-based limit 1000000
+299.74/300.00	c Iteration #867
+299.74/300.00	s SATISFIABLE
+299.74/300.00	o 281 
+299.74/300.00	v 00001100010110101010100001000000001000000010001011101001000110011001010111010101010110010101110101011110100100001011000011001010100111010100000000011011011001010101111100111010010111010000000001010110000101011110010
+c [MSE2022] -- end -- [MSE2022]
