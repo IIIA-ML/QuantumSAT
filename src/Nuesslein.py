@@ -143,7 +143,8 @@ class nuesslein2:
         answer = response.first.sample
         assignment = [list(answer.values())[i] for i in range(self.V)]
         non_zero_couplings = get_n_couplings(self.Q)
-        return time, check_solution(self.formula, assignment), response, non_zero_couplings
+        log_qubits = len(answer.keys())
+        return time, check_solution(self.formula, assignment), response, non_zero_couplings, log_qubits
 
 
 class choi:
@@ -194,7 +195,8 @@ class choi:
                 else:
                     assignment[abs(self.L[i])-1] = 1
         non_zero_couplings = get_n_couplings(self.Q)
-        return time, check_solution(self.formula, assignment), response, non_zero_couplings
+        log_qubits = len(answer.keys())
+        return time, check_solution(self.formula, assignment), response, non_zero_couplings, log_qubits
 
 
 class chancellor:
@@ -273,7 +275,8 @@ class chancellor:
         answer = response.first.sample
         assignment = [list(answer.values())[i] for i in range(self.V)]
         non_zero_couplings = get_n_couplings(self.Q)
-        return time, check_solution(self.formula, assignment), response, non_zero_couplings
+        log_qubits = len(answer.keys())
+        return time, check_solution(self.formula, assignment), response, non_zero_couplings, log_qubits
 
 
 class nuesslein1:
@@ -336,4 +339,5 @@ class nuesslein1:
         answer = response.first.sample
         assignment = [list(answer.values())[2*i] for i in range(self.V)]
         non_zero_couplings = get_n_couplings(self.Q)
-        return time, check_solution(self.formula, assignment), response, non_zero_couplings
+        log_qubits = len(answer.keys())
+        return time, check_solution(self.formula, assignment), response, non_zero_couplings, log_qubits
