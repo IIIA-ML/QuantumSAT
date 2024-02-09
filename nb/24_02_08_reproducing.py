@@ -178,7 +178,7 @@ print(table3_sa)
 # ### Get mean satisfied clauses with DWave
 
 # %%
-def solve_Q_dwave(Q, num_reads=100, anneal_time=1):
+def solve_Q_dwave(Q, num_reads=10, anneal_time=100):
     token = 'Your token'
     sampler = EmbeddingComposite(DWaveSampler(token=token))
     sample_set = sampler.sample_qubo(Q, num_reads=num_reads, annealing_time=anneal_time, \
@@ -188,38 +188,78 @@ def solve_Q_dwave(Q, num_reads=100, anneal_time=1):
 
 
 # %%
-def get_mean_results_dwave(gadget: str):
-    module = __import__("Nuesslein")
-    results = []
-    for folder in ["p5", "p10", "p12"]:
-        print(f"Computing folder {folder}")
-        directory = "../exp/iccs24/nuesslein_problems/"+folder
-        solved_clauses = []
-        for file in os.listdir(directory):
-            if not file.startswith('.'):
-                clauses, V = parsear_cnf_file("../exp/iccs24/nuesslein_problems/"+folder+"/"+file)
-                instance = getattr(module, gadget)(clauses, V-1)
-                instance.fillQ()
-                sample_set = solve_Q_dwave(instance.Q)
-                unsatisfied_clauses = int(count_unsatisfied_clauses(sample_set.first.sample, clauses))
-                solved_clauses.append(len(clauses)-unsatisfied_clauses)
+def solve_h_J_dwave(h, J, num_reads=10, anneal_time=100):
+    token = 'Your token'
+    sampler = EmbeddingComposite(DWaveSampler(token=token))
+    sample_set = sampler.sample_ising(h, J, num_reads=num_reads, annealing_time=anneal_time, \
+                                     return_embedding=True, reduce_intersample_correlation=True)
 
-                dir = "../exp/iccs24/nuesslein_dwave/"+gadget+"/"+folder
-                save_dir = Path(dir)
-                save_dir.mkdir(parents=True, exist_ok=True)
-                with open((dir+"/"+file).replace('.cnf', '_dwave.txt'), 'a') as archivo:
-                    archivo.write("o " + str(unsatisfied_clauses) + "\n")
-                    archivo.write("e " + str(sample_set.first.energy) + "\n")
-                    archivo.write("v " + str(sample_set.first.sample) + "\n")
-                    archivo.write(str(sample_set.samples))
-        results.append(np.mean(solved_clauses))
+    return sample_set
+
+
+# %%
+def get_mean_results_dwave(gadget: str):
+    results = []
+    if gadget in ["nuesslein1", "nuesslein2", "chancellor", "choi"]:
+        module = __import__("Nuesslein")
+        for folder in ["p5", "p10", "p12"]:
+        # for folder in ["p10"]:
+            print(f"Computing folder {folder}")
+            directory = "../exp/iccs24/nuesslein_problems/"+folder
+            solved_clauses = []
+            for file in os.listdir(directory):
+                if not file.startswith('.'):
+                    clauses, V = parsear_cnf_file("../exp/iccs24/nuesslein_problems/"+folder+"/"+file)
+                    instance = getattr(module, gadget)(clauses, V-1)
+                    instance.fillQ()
+                    sample_set = solve_Q_dwave(instance.Q)
+                    unsatisfied_clauses = int(count_unsatisfied_clauses(sample_set.first.sample, clauses))
+                    solved_clauses.append(len(clauses)-unsatisfied_clauses)
+    
+                    dir = "../exp/iccs24/nuesslein_dwave/"+gadget+"/"+folder
+                    save_dir = Path(dir)
+                    save_dir.mkdir(parents=True, exist_ok=True)
+                    with open((dir+"/"+file).replace('.cnf', '_dwave.txt'), 'a') as archivo:
+                        archivo.write("o " + str(unsatisfied_clauses) + "\n")
+                        archivo.write("e " + str(sample_set.first.energy) + "\n")
+                        archivo.write("v " + str(sample_set.first.sample) + "\n")
+                        archivo.write(str(sample_set.samples))
+            results.append(np.mean(solved_clauses))
+
+    else:
+        for folder in ["p5", "p10", "p12"]:
+        #for folder in ["p10"]:
+            print(f"Computing folder {folder}")
+            directory = "../exp/iccs24/nuesslein_problems/"+folder
+            solved_clauses = []
+            for file in os.listdir(directory):
+                if not file.startswith('.'):
+                    clauses, V = parsear_cnf_file("../exp/iccs24/nuesslein_problems/"+folder+"/"+file)
+                    h, J, aux = globals()[gadget](clauses, V)
+                    sample_set = solve_h_J_dwave(h,J)
+                    solution = sample_set.first.sample
+                    for key, val in solution.items():
+                        if val == -1:
+                            solution[key] = 0
+                    unsatisfied_clauses = count_unsatisfied_clauses(list(solution.values()), clauses)
+                    solved_clauses.append(len(clauses)-unsatisfied_clauses)
+   
+                    dir = "../exp/iccs24/nuesslein_dwave/"+gadget+"/"+folder
+                    save_dir = Path(dir)
+                    save_dir.mkdir(parents=True, exist_ok=True)
+                    with open((dir+"/"+file).replace('.cnf', '_dwave.txt'), 'a') as archivo:
+                        archivo.write("o " + str(unsatisfied_clauses) + "\n")
+                        archivo.write("e " + str(sample_set.first.energy) + "\n")
+                        archivo.write("v " + str(sample_set.first.sample) + "\n")
+                        archivo.write(str(sample_set.samples))
+            results.append(np.mean(solved_clauses))
 
     return results
 
 
 # %%
-gadgets = ["nuesslein1", "nuesslein2", "chancellor", "choi"]
-# gadgets = ["nuesslein2"]
+# gadgets = ["nuesslein1", "nuesslein2", "chancellor", "choi", "tseitin"]
+gadgets = ["nuesslein1"]
 table3_dwave = {}
 
 for gadget in gadgets:
@@ -230,13 +270,6 @@ for gadget in gadgets:
 
 # %%
 table3_dwave
-
-# %%
-
-# %%
-#ToDo: implement tseitin with dwave. Are the results even good??
-
-# %%
 
 # %%
 
