@@ -14,6 +14,7 @@
 
 import numpy as np
 import random
+import math
 
 
 def ksat_3sat(clauses, b):
