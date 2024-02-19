@@ -30,7 +30,7 @@ def ksat_3sat(clauses, b):
                 
         else:
             new_clauses.append(np.array(clause))
-    return new_clauses, b+1
+    return new_clauses, b
 
 
 def tseitin(clauses,b): #Al solucionar 3SAT creamos una nueva variable extra
@@ -41,7 +41,7 @@ def tseitin(clauses,b): #Al solucionar 3SAT creamos una nueva variable extra
     b_init=b
     
     for clause in clauses:
-        sign = [1 if x >= 0 else -1 for x in sorted(clause, key=abs)]
+        sign = [1 if x >= 0 else -1 for x in clause]
         var = [abs(x) for x in clause]
         
         for v in var:
@@ -81,7 +81,7 @@ def three_sat_max2xor(clauses, b):
     b_init=b
     
     for clause in clauses:
-        sign = [1 if x >= 0 else -1 for x in sorted(clause, key=abs)]
+        sign = [1 if x >= 0 else -1 for x in clause]
         var = [abs(x) for x in clause]
         
         for v in var:
