@@ -8,7 +8,11 @@ Currently only Linux is supported (Windows users can use WSL)
 
 1. Clone the repo
 2. source bin/init-local.sh
-3. You can launch jupyter from console.
+3. dwave setup
+4. You can launch jupyter from console.
+
+
+After 3.: Answer 'Y' to All and then paste the Solver API token (it is in your Dashboard of D-Wave Leap)
 
 ## Directories
 
