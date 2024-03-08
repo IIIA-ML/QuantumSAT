@@ -143,7 +143,7 @@ def get_embedding(Q):
             if value != 0:
                 couplings.append(key)
     try:
-        embedding = find_embedding(couplings, DWaveSampler().edgelist, random_seed=10)
+        embedding = find_embedding(couplings, DWaveSampler(token='Your token').edgelist, random_seed=10)
     except Exception as e:
         embedding = None
     
@@ -152,7 +152,7 @@ def get_embedding(Q):
 
 
 def solve_with_DWave(Q):    
-    sampler = EmbeddingComposite(DWaveSampler(token='Your_Token'))
+    sampler = EmbeddingComposite(DWaveSampler(token='Your token'))
     response = sampler.sample_qubo(Q, num_reads=100, annealing_time=100, reduce_intersample_correlation=True)
 
     return response
