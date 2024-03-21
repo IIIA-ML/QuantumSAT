@@ -136,14 +136,14 @@ def get_non_zero_coupings(Q):
 
 
 
-def get_embedding(Q):
+def get_embedding(Q, token, random_seed=10):
     couplings = []
     for key, value in Q.items():
         if key[0] != key[1]:
             if value != 0:
                 couplings.append(key)
     try:
-        embedding = find_embedding(couplings, DWaveSampler(token='Your token').edgelist, random_seed=10)
+        embedding = find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=random_seed)
     except Exception as e:
         embedding = None
     
