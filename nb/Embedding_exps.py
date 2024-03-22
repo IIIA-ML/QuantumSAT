@@ -19,12 +19,13 @@ import random
 import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
+import time
 sys.path.append('../src')
 
 import utils
 import CJ2
 
-from dwave.system import DWaveSampler, EmbeddingComposite
+from dwave.system import DWaveSampler, FixedEmbeddingComposite
 from minorminer import find_embedding
 
 # %%
@@ -34,7 +35,7 @@ from minorminer import find_embedding
 
 # %%
 random.seed(901)
-num_vars = 150
+num_vars = 5
 p = utils.generate_3sat(num_vars, ratio=4.2)
 
 # %%
@@ -59,20 +60,25 @@ with open(p_dir / ("p"+str(num_vars)+".cnf"),"w") as f:
 # ##### When solving with DWave, do the solutions depend strongly on the embedding?
 
 # %%
-dwave_token = ""
+dwave_token = "Your token"
 
 # %%
 instance = CJ2.CJ2("../exp/embedding/problems/p"+str(num_vars)+".cnf")
 instance.fillQ()
 
 # %%
-embedding = utils.get_embedding(instance.Q, token=dwave_token, random_seed=10)
+for i in range(0,10):
+    print(f"Finding Embedding #{i}...")
+    sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), embedding_parameters={"random_seed":i})
+    print(f"Embedding #{i} found.")
+    
+    response = sampler.sample_qubo(instance.Q, num_reads=100, annealing_time=100, \
+                               reduce_intersample_correlation=True, return_embedding=True)
 
-# %%
-embedding
-
-# %%
-
-# %%
-
-# %%
+    print(f"Solved with Embedding #{i}. Appending in txt...")    
+    with open(p_dir / ("p"+str(num_vars)+"_solutions.txt"),"a") as f:
+        f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+        f.write("e "+str(response.first.energy)+"\n")
+        f.write("v "+str(response.first.sample)+"\n")
+        f.write(str(response.info['embedding_context']))
+        f.write(str(response.samples))
