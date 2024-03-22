@@ -25,7 +25,7 @@ sys.path.append('../src')
 import utils
 import CJ2
 
-from dwave.system import DWaveSampler, FixedEmbeddingComposite
+from dwave.system import DWaveSampler, EmbeddingComposite
 from minorminer import find_embedding
 
 # %%
@@ -82,3 +82,5 @@ for i in range(0,10):
         f.write("v "+str(response.first.sample)+"\n")
         f.write(str(response.info['embedding_context']))
         f.write(str(response.samples))
+
+# %%
