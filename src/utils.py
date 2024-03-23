@@ -163,7 +163,7 @@ def count_unsatisfied_clauses(assignment, clauses):
     count = 0
     for c in clauses:
         for l in c:
-            if (l > 0 and assignment[np.abs(l)-1] == 1) or (l < 0 and assignment[np.abs(l)-1] == -1):
+            if (l > 0 and assignment[np.abs(l)-1] == 1) or (l < 0 and assignment[np.abs(l)-1] == 0):
                 count += 1
                 break
                 
