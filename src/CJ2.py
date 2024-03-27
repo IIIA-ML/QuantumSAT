@@ -4,8 +4,12 @@ import numpy as np
 
 class CJ2:
 
-    def __init__(self, file_path):
-        self.clauses, self.V = utils.parse_cnf_file(file_path)
+    def __init__(self, file_path=None, clauses=None, V=None):
+        if file_path is not None:
+            self.clauses, self.V = utils.parse_cnf_file(file_path)
+        else:
+            self.clauses = clauses
+            self.V = V
         self.Q = {}
 
     def add(self, x, y, value):
