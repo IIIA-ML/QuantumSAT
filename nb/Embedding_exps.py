@@ -27,6 +27,8 @@ import CJ2
 
 from dwave.system import DWaveSampler, EmbeddingComposite
 from minorminer import find_embedding
+from dwave.system import DWaveSampler
+import dwave.inspector
 
 # %%
 
@@ -112,8 +114,8 @@ sub_clauses = []
 for c in instance.clauses:
     if u[count_sort_ind][0] in c or -u[count_sort_ind][0] in c:
         sub_clauses.append(np.array(c))
-    #elif u[count_sort_ind][1] in c or -u[count_sort_ind][1] in c:
-    #    sub_clauses.append(np.array(c))
+    elif u[count_sort_ind][1] in c or -u[count_sort_ind][1] in c:
+        sub_clauses.append(np.array(c))
 
 # %%
 ############### OHO! The aux variables need to be the same between the Q and the sub_Q!
@@ -153,10 +155,14 @@ sub_embedding
 print(max(len(v) for v in sub_embedding.values()))
 
 # %%
-for i in range(100,110):
+fixed_chains = {k: v for k, v in sub_embedding.items() if len(v)>=4}
+print(fixed_chains)
+
+# %%
+for i in range(100,106):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), \
-                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding})
+                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding, "fixed_chains":fixed_chains})
     print(f"Embedding #{i} found.")
 
     try:    
@@ -164,7 +170,7 @@ for i in range(100,110):
                                reduce_intersample_correlation=True, return_embedding=True)
     
         print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / ("p"+str(num_vars)+"_subembedding_sorted"+"_solutions.txt"),"a") as f:
+        with open(p_dir / "Fixed_chains" /("p"+str(num_vars)+"_subembedding_sorted"+"_solutions_v2_fixed_4.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
@@ -175,7 +181,7 @@ for i in range(100,110):
         continue
 
 # %%
-with open('../exp/embedding/problems/p50_subembedding_sorted_solutions.txt', 'r') as f:
+with open('../exp/embedding/problems/p50_subembedding_sorted_solutions_v10.txt', 'r') as f:
     lines = f.readlines()
     for line in lines:
         if line.startswith('o '):
@@ -202,8 +208,6 @@ sub_couplings = {}
 for key, value in non_zero_couplings.items():
     if key[0] == u2[count_sort_ind2][0] or key[1] == u2[count_sort_ind2][0]:
         sub_couplings[key] = value
-    elif key[0] == u2[count_sort_ind2][1] or key[1] == u2[count_sort_ind2][1]:
-        sub_couplings[key] = value
 
 # %%
 sub_embedding2 = utils.get_embedding(sub_couplings, dwave_token, random_seed=0)
@@ -211,6 +215,8 @@ sub_embedding2
 
 # %%
 print(max(len(v) for v in sub_embedding2.values()))
+fixed_chains = {k: v for k, v in sub_embedding2.items() if len(v)>2}
+print(fixed_chains)
 
 # %%
 for i in range(100,110):
@@ -224,7 +230,7 @@ for i in range(100,110):
                                reduce_intersample_correlation=True, return_embedding=True)
     
         print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / ("p"+str(num_vars)+"_subembedding2"+"_solutions.txt"),"a") as f:
+        with open(p_dir / ("p"+str(num_vars)+"_subembedding2"+"_solutions_v1.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
@@ -272,7 +278,7 @@ for c in clauses:
         else:
             relevant_keys[tuple(sorted([np.abs(c[key[0]])-1, np.abs(c[key[1]])-1]))] += 1
 relevant_keys = dict(sorted(relevant_keys.items(), key=lambda x:x[1], reverse=True))
-relevant_keys = dict(list(relevant_keys.items())[:len(relevant_keys)//8])
+relevant_keys = dict(list(relevant_keys.items())[:len(relevant_keys)//2])
 
 relevant_clauses = []
 secundary_clauses = []
@@ -297,14 +303,16 @@ instance = CJ2.CJ2(clauses=relevant_clauses+secundary_clauses, V=num_vars)
 instance.fillQ()
 
 # %%
+couplings = []
+for key, value in instance.Q.items():
+    if key in relevant_keys_Q:
+        #if value != 0:
+            couplings.append(key)
+initial_chains = find_embedding(couplings, DWaveSampler().edgelist, random_seed=0)
+
+# %%
 for i in range(100,110):
     print(f"Finding Embedding #{i}...")
-    couplings = []
-    for key, value in instance.Q.items():
-        if key in relevant_keys_Q:
-            #if value != 0:
-                couplings.append(key)
-    initial_chains = find_embedding(couplings, DWaveSampler().edgelist, random_seed=0)
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), embedding_parameters={"random_seed":i, "initial_chains":initial_chains})
     print(f"Embedding #{i} found.")
 
@@ -341,6 +349,8 @@ with open('../exp/embedding/problems/p50_solutions_approach_emb.txt', 'r') as f:
 # ### Optimum distribution for each approach
 
 # %%
+#most_seen_v = [1,2,10]
+most_seen_v = [2,4,10]
 o_v = {}
 file_path = f'../exp/embedding/problems/p50.cnf'
 clauses, v = utils.parse_cnf_file(file_path)
@@ -348,6 +358,7 @@ for i in most_seen_v:
     o_list = {}
     num_sols=0
     sample_set_str=""
+    #with open(f'../exp/embedding/problems/p50_subembedding_sorted_solutions_v{i}.txt', 'r') as f:
     with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v{i}.txt', 'r') as f:
         lines=f.readlines()
         r=0
@@ -380,6 +391,25 @@ for i in most_seen_v:
 
 # %%
 print(o_v)
+
+# %%
+fig, ax = plt.subplots(figsize=(5, 5))
+
+j = -1
+k=0
+for o_v_name, o_optims in o_v.items():
+    x_pos=[x+j*0.2 for x in list(o_optims.keys())]
+    ax.bar(x_pos, o_optims.values(), label=o_v_name, width=0.2)
+    j += 1
+ax.set_title('Optimum distribution for approach v_i in SAT\n num_vars=50')
+ax.set_xlabel('Optimum difference')
+ax.set_ylabel('Percentage (%)')
+#ax.set_ylim(0,20)
+#ax.set_xlim([1.4, 10.6])
+ax.set_xticks(np.arange(17))
+ax.legend()
+
+plt.show()
 
 # %%
 fig, ax = plt.subplots(figsize=(5, 5))
@@ -463,6 +493,120 @@ ax.set_xticks(np.arange(17))
 ax.legend()
 
 plt.show()
+
+# %%
+o_v = {}
+file_path = f'../exp/embedding/problems/p50.cnf'
+clauses, v = utils.parse_cnf_file(file_path)
+o_list = {}
+num_sols=0
+z=0
+sample_set_str=""
+#with open(f'../exp/embedding/problems/p50_subembedding_sorted_solutions_v{i}.txt', 'r') as f:
+with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v2.txt', 'r') as f:
+    lines=f.readlines()
+    r=0
+    while r<len(lines):
+        sample_set_str=''
+        o_list={}
+        if lines[r].startswith('<bound'):
+            for k in range(r,len(lines)):
+                if k==r:
+                    sample_set_str+=lines[r][55:]
+                if lines[k].split()[0].startswith('(['):
+                    if lines[k+1].split()[0].startswith('(['):
+                        sample_set_str+=lines[k]
+                    if not lines[k+1].split()[0].startswith('(['):
+                        line=lines[k].replace(" ", "")
+                        sample_set_str+=line[:-2]
+                if k!=r and not lines[k].split()[0].startswith('(['):
+                    break
+            r=k
+            num_sols+=1 #To know how many solutions we have generated
+            sample_set=eval(sample_set_str)
+            for sample in sample_set:
+                assignment={i:sample[0][i] for i in range(len(sample[0]))}
+                o_found = int(utils.count_unsatisfied_clauses(assignment, clauses))
+                if o_found not in o_list.keys():
+                    o_list[o_found]=sample[-2]
+                else:
+                    o_list[o_found]+=sample[-2]
+            o_v[z]=o_list
+            z+=1
+        r+=1
+
+# %%
+emb=[f'Embed {i}' for i in range(num_sols)]
+o_v = {key: dict(sorted(v.items())) for key, v in o_v.items()}
+m_l=max(len(v) for v in o_v.values())
+for key, value in o_v.items():
+    if len(value)!=m_l:
+        for k, i in enumerate(range(len(value), m_l)):
+            value[max(value.values())+k]=0
+    
+df = pd.DataFrame(o_v)
+print(df)
+
+# %% [markdown]
+# ### Comparing embeding metrics
+
+# %%
+txt = [f'{p_dir}/p50_solutions.txt', f'{p_dir}/p50_subembedding_sorted_solutions_v1.txt', f'{p_dir}/p50_subembedding2_solutions_v2.txt']
+approach = ['default', 'v_1 in SAT', 'v_1 and v_2 in QUBO']
+chain_strength = {}
+chain_max_len = {}
+chain_length = {}
+sum_chain_length = {}
+k=0
+for file_name in txt:
+    chain_str = []
+    chain_max_l = []
+    chain_len = []
+    sum_chain_l = []
+    z=0
+    with open(file_name, 'r') as f:
+        lines = f.readlines()
+        for l in lines:
+            if l.startswith("{'embedding'"):
+                if z>=5:
+                    break
+                embedding = eval(l)
+                chain_str.append(embedding['chain_strength'])
+                chain_max_l.append(max(len(v) for v in embedding['embedding'].values()))
+                chain_l = {}
+                sum = 0
+                for v in embedding['embedding'].values():
+                    if len(v) in chain_l.keys():
+                        chain_l[len(v)]+=1
+                    else:
+                        chain_l[len(v)]=1
+                    sum+=len(v)
+                chain_len.append(chain_l)
+                sum_chain_l.append(sum)
+                z+=1
+    chain_strength[approach[k]] = chain_str
+    chain_max_len[approach[k]] = chain_max_l
+    chain_length[approach[k]] = chain_len
+    sum_chain_length[approach[k]] = sum_chain_l
+    k+=1
+
+# %%
+data={'chain_str': chain_strength, 'chain_max_len': chain_max_len, 'sum_chain_len': sum_chain_length}
+df=pd.DataFrame(data, approach)
+display(df)
+
+# %%
+for approach, solutions  in chain_length.items():
+    data={}
+    m_l=max(len(v) for solution in solutions)
+    for j, solution in enumerate(solutions):
+        if len(solution)!=m_l:
+            for k, i in enumerate(range(len(solution), m_l)):
+                solution[max(solution.values())+k]=None
+        data[j]=dict(sorted(solution.items()))
+    print('For the approach: ', approach)
+    df=pd.DataFrame(data)
+    display(df)
 
 # %% [markdown]
 # ### Scaling bqm and test Enery gap
