@@ -35,7 +35,7 @@ from minorminer import find_embedding
 
 # %%
 random.seed(901)
-num_vars = 150
+num_vars = 40
 p = utils.generate_3sat(num_vars, ratio=4.2)
 
 # %%
@@ -60,14 +60,14 @@ with open(p_dir / ("p"+str(num_vars)+".cnf"),"w") as f:
 # ##### When solving with DWave, do the solutions depend strongly on the embedding?
 
 # %%
-dwave_token = ""
+dwave_token = "Your token"
 
 # %%
 instance = CJ2.CJ2("../exp/embedding/problems/p"+str(num_vars)+".cnf")
 instance.fillQ()
 
 # %%
-for i in range(43,50):
+for i in range(0,10):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), embedding_parameters={"random_seed":i})
     print(f"Embedding #{i} found.")
@@ -78,6 +78,7 @@ for i in range(43,50):
                                    reduce_intersample_correlation=True, return_embedding=True)
     
         print(f"Solved with Embedding #{i}. Appending in txt...")    
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
         with open(p_dir / ("p"+str(num_vars)+"_solutions.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
@@ -109,26 +110,23 @@ most_appearing_variable = variables_appearence[0][np.argmax(variables_appearence
 print(f"{most_appearing_variable} is the variable the appears the most")
 
 # %%
-variables_appearence
-
-# %%
-u, count = np.unique(np.absolute(instance.clauses), return_counts=True)
-count_sort_ind = np.argsort(-count)
-u[count_sort_ind]
+var_index, var_count = np.unique(np.absolute(instance.clauses), return_counts=True)
+count_sort_ind = np.argsort(-var_count)
+var_appearence_sorted = var_index[count_sort_ind]
 
 # %%
 sub_clauses = []
 for c in instance.clauses:
-    if most_appearing_variable in c or -most_appearing_variable in c:
+    if var_appearence_sorted[0] in c or -var_appearence_sorted[0] in c:
         sub_clauses.append(np.array(c))
-    elif 23 in c or -23 in c:
-        sub_clauses.append(np.array(c))
-    elif 129 in c or -129 in c:
-        sub_clauses.append(np.array(c))
-    elif 125 in c or -125 in c:
-        sub_clauses.append(np.array(c))
+    # elif var_appearence_sorted[1] in c or -var_appearence_sorted[1] in c:
+    #     sub_clauses.append(np.array(c))
+    # elif var_appearence_sorted[2] in c or -var_appearence_sorted[2] in c:
+    #     sub_clauses.append(np.array(c))
+    # elif var_appearence_sorted[3] in c or -var_appearence_sorted[3] in c:
+    #     sub_clauses.append(np.array(c))
 
-sub_clauses
+len(sub_clauses)
 
 
 # %%
@@ -139,7 +137,7 @@ sub_clauses
 class sub_CJ2:
 
     def __init__(self, sub_clauses):
-        self.clauses, self.V = sub_clauses, 150
+        self.clauses, self.V = sub_clauses, num_vars
         self.Q = {}
 
     def add(self, x, y, value):
@@ -190,16 +188,18 @@ sub_instance.Q
 sub_instance.fillQ()
 
 # %%
-sub_embedding = utils.get_embedding(sub_instance.Q, dwave_token, random_seed=0)
+sub_embedding = utils.get_embedding(sub_instance.Q, dwave_token, random_seed=903)
 sub_embedding
 
 # %%
 
 # %%
+sub_sub_embedding = {31: [3747, 3868, 2479]}
+
 for i in range(0,10):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), \
-                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding})
+                             embedding_parameters={"random_seed":i, "fixed_chains":sub_sub_embedding})
     print(f"Embedding #{i} found.")
 
     try:    
@@ -207,6 +207,7 @@ for i in range(0,10):
                                reduce_intersample_correlation=True, return_embedding=True)
     
         print(f"Solved with Embedding #{i}. Appending in txt...")    
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
         with open(p_dir / ("p"+str(num_vars)+"_subembedding_sorted"+"_solutions.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
@@ -231,35 +232,35 @@ for key, value in instance.Q.items():
             if value != 0:
                 non_zero_couplings[key] = value
 
-u2, count2 = np.unique(np.absolute([key for key in non_zero_couplings]), return_counts=True)
-count_sort_ind2 = np.argsort(-count2)
-u2[count_sort_ind2]
+var_index2, var_count2 = np.unique(np.absolute([key for key in non_zero_couplings]), return_counts=True)
+count_sort_ind2 = np.argsort(-var_count2)
+var_appearence_sorted2 = var_index2[count_sort_ind2]
 
 # %%
 sub_couplings = {}
 for key, value in non_zero_couplings.items():
-        if key[0] == 134 or key[1] == 134:
+        if key[0] == var_appearence_sorted2[0] or key[1] == var_appearence_sorted2[0]:
             sub_couplings[key] = value
-        if key[0] == 148 or key[1] == 148:
+        elif key[0] == var_appearence_sorted2[1] or key[1] == var_appearence_sorted2[1]:
             sub_couplings[key] = value
-        if key[0] == 22 or key[1] == 22:
-            sub_couplings[key] = value
-        if key[0] == 124 or key[1] == 124:
-            sub_couplings[key] = value
+        # elif key[0] == var_appearence_sorted2[2] or key[1] == var_appearence_sorted2[2]:
+        #     sub_couplings[key] = value
+        # elif key[0] == var_appearence_sorted2[3] or key[1] == var_appearence_sorted2[3]:
+        #     sub_couplings[key] = value
+
+print(len(sub_couplings), sub_couplings)
 
 # %%
-sub_embedding2 = utils.get_embedding(sub_couplings, dwave_token, random_seed=0)
+sub_embedding2 = utils.get_embedding(sub_couplings, dwave_token, random_seed=904)
 sub_embedding2
 
 # %%
-with open(p_dir / ("p"+str(num_vars)+"_subembedding2"+"_solutions.txt"),"a") as f:
-    f.write("Sub_embedding: "+str(sub_embedding2)+"\n")
+sub_sub_embedding2 = {38: [5276, 2321, 2322, 5279, 5277, 5278]}
 
-# %%
-for i in range(0,15):
+for i in range(0,10):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), \
-                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding2})
+                             embedding_parameters={"random_seed":i, "fixed_chains":sub_sub_embedding2})
     print(f"Embedding #{i} found.")
 
     try:
@@ -267,6 +268,7 @@ for i in range(0,15):
                                reduce_intersample_correlation=True, return_embedding=True)
     
         print(f"Solved with Embedding #{i}. Appending in txt...")    
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
         with open(p_dir / ("p"+str(num_vars)+"_subembedding2"+"_solutions.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
