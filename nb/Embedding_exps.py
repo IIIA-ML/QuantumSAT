@@ -37,7 +37,7 @@ import dwave.inspector
 
 # %%
 random.seed(901)
-num_vars = 50
+num_vars = 30
 p = utils.generate_3sat(num_vars, ratio=4.2)
 
 # %%
@@ -65,22 +65,28 @@ with open(p_dir / ("p"+str(num_vars)+".cnf"),"w") as f:
 dwave_token = "Your token"
 
 # %%
+# Read Problem
+
 instance = CJ2.CJ2("../exp/embedding/problems/p"+str(num_vars)+".cnf")
 instance.fillQ()
 
 # %%
-for i in range(100,110):
+for i in range(0,2):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), embedding_parameters={"random_seed":i})
-    print(f"Embedding #{i} found.")
 
     try:
     
         response = sampler.sample_qubo(instance.Q, num_reads=100, annealing_time=100, \
                                    reduce_intersample_correlation=True, return_embedding=True)
     
-        print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / ("p"+str(num_vars)+"_solutions.txt"),"a") as f:
+        print(f"Solved with Embedding #{i}. Appending in txt...")
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+
+        dir = "../exp/embedding/solutions/default"
+        p_dir = Path(dir)
+        p_dir.mkdir(parents=True, exist_ok=True)
+        with open(p_dir / ("p"+str(num_vars)+"_default.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
@@ -88,7 +94,7 @@ for i in range(100,110):
             f.write(str(response.samples)+"\n")
 
     except:
-        print("en verda no lmao")
+        print("Embedding not found")
         continue
 
 # %%
@@ -159,29 +165,34 @@ fixed_chains = {k: v for k, v in sub_embedding.items() if len(v)>=4}
 print(fixed_chains)
 
 # %%
-for i in range(100,106):
+for i in range(0,2):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), \
-                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding, "fixed_chains":fixed_chains})
+                             embedding_parameters={"random_seed":i, "initial_chains":sub_embedding})
     print(f"Embedding #{i} found.")
 
     try:    
         response = sampler.sample_qubo(instance_sorted.Q, num_reads=100, annealing_time=100, \
                                reduce_intersample_correlation=True, return_embedding=True)
     
-        print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / "Fixed_chains" /("p"+str(num_vars)+"_subembedding_sorted"+"_solutions_v2_fixed_4.txt"),"a") as f:
+        print(f"Solved with Embedding #{i}. Appending in txt...")
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+
+        dir = "../exp/embedding/solutions/SAT_subembedding"
+        p_dir = Path(dir)
+        p_dir.mkdir(parents=True, exist_ok=True)
+        with open(p_dir / ("p"+str(num_vars)+"_SATsubembedding_initial.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
             f.write(str(response.info['embedding_context'])+"\n")
             f.write(str(response.samples)+"\n")
     except:
-        print("en verdad no lmao")
+        print("Embedding not found")
         continue
 
 # %%
-with open('../exp/embedding/problems/p50_subembedding_sorted_solutions_v10.txt', 'r') as f:
+with open(f'../exp/embedding/solutions/SAT_subembedding/p{num_vars}_SATsubembedding_initial.txt', 'r') as f:
     lines = f.readlines()
     for line in lines:
         if line.startswith('o '):
@@ -210,7 +221,7 @@ for key, value in non_zero_couplings.items():
         sub_couplings[key] = value
 
 # %%
-sub_embedding2 = utils.get_embedding(sub_couplings, dwave_token, random_seed=0)
+sub_embedding2 = utils.get_embedding(sub_couplings, dwave_token, random_seed=10)
 sub_embedding2
 
 # %%
@@ -219,7 +230,7 @@ fixed_chains = {k: v for k, v in sub_embedding2.items() if len(v)>2}
 print(fixed_chains)
 
 # %%
-for i in range(100,110):
+for i in range(0,2):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), \
                              embedding_parameters={"random_seed":i, "initial_chains":sub_embedding2})
@@ -229,8 +240,13 @@ for i in range(100,110):
         response = sampler.sample_qubo(instance.Q, num_reads=100, annealing_time=100, \
                                reduce_intersample_correlation=True, return_embedding=True)
     
-        print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / ("p"+str(num_vars)+"_subembedding2"+"_solutions_v1.txt"),"a") as f:
+        print(f"Solved with Embedding #{i}. Appending in txt...")   
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+
+        dir = "../exp/embedding/solutions/Q_subembedding"
+        p_dir = Path(dir)
+        p_dir.mkdir(parents=True, exist_ok=True)
+        with open(p_dir / ("p"+str(num_vars)+"_Qsubembedding"+"_initial.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
@@ -238,11 +254,11 @@ for i in range(100,110):
             f.write(str(response.samples)+"\n")
             
     except:
-        print("En verdad no lmao")
+        print("Embedding not found")
         continue
 
 # %%
-with open('../exp/embedding/problems/p50_subembedding2_solutions_v2.txt', 'r') as f:
+with open(f'../exp/embedding/solutions/Q_subembedding/p{num_vars}_Qsubembedding_initial.txt', 'r') as f:
     lines = f.readlines()
     for line in lines:
         if line.startswith('o '):
@@ -250,10 +266,10 @@ with open('../exp/embedding/problems/p50_subembedding2_solutions_v2.txt', 'r') a
 
 # %%
 o={}
-most_seen_v = [2,4,10]
+most_seen_v = [1]
 for i in most_seen_v:
     o_emb=[]
-    with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v{i}.txt', 'r') as f:
+    with open(f'../exp/embedding/solutions/Q_subembedding/p{num_vars}_Qsubembedding_initial.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
             if line.startswith('o '):
@@ -263,6 +279,8 @@ for i in most_seen_v:
 iterations = [i for i in range(len(o_emb)-1)]
 iterations.append('Mean')
 pd.DataFrame(o, iterations)
+
+# %%
 
 # %% [markdown]
 # ### Most seen (v_i,v_j) in SAT clauses
@@ -308,10 +326,10 @@ for key, value in instance.Q.items():
     if key in relevant_keys_Q:
         #if value != 0:
             couplings.append(key)
-initial_chains = find_embedding(couplings, DWaveSampler().edgelist, random_seed=0)
+initial_chains = find_embedding(couplings, DWaveSampler(token=dwave_token).edgelist, random_seed=0)
 
 # %%
-for i in range(100,110):
+for i in range(0,2):
     print(f"Finding Embedding #{i}...")
     sampler = EmbeddingComposite(DWaveSampler(token=dwave_token), embedding_parameters={"random_seed":i, "initial_chains":initial_chains})
     print(f"Embedding #{i} found.")
@@ -320,8 +338,13 @@ for i in range(100,110):
         #Q = {k: v for k, v in instance.Q.items() if (k[0] != k[1] and v != 0) or k[0] == k[1]}
         response = sampler.sample_qubo(instance.Q, num_reads=100, annealing_time=100, reduce_intersample_correlation=True, return_embedding=True)
         
-        print(f"Solved with Embedding #{i}. Appending in txt...")    
-        with open(p_dir / ("p"+str(num_vars)+"_solutions_approach_emb.txt"),"a") as f:
+        print(f"Solved with Embedding #{i}. Appending in txt...") 
+        print("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+
+        dir = "../exp/embedding/solutions/relations_subembedding"
+        p_dir = Path(dir)
+        p_dir.mkdir(parents=True, exist_ok=True)
+        with open(p_dir / ("p"+str(num_vars)+"_relations_initial.txt"),"a") as f:
             f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
             f.write("e "+str(response.first.energy)+"\n")
             f.write("v "+str(response.first.sample)+"\n")
@@ -339,7 +362,7 @@ print('Num of chains that chain_length>40: ', count)
 print('Maximum chain_length: ', max(len(v) for v in initial_chains.values()))
 
 # %%
-with open('../exp/embedding/problems/p50_solutions_approach_emb.txt', 'r') as f:
+with open(f'../exp/embedding/solutions/relations_subembedding/p{num_vars}_relations_initial.txt', 'r') as f:
     lines = f.readlines()
     for line in lines:
         if line.startswith('o '):
@@ -350,16 +373,16 @@ with open('../exp/embedding/problems/p50_solutions_approach_emb.txt', 'r') as f:
 
 # %%
 #most_seen_v = [1,2,10]
-most_seen_v = [2,4,10]
+most_seen_v = [1]
 o_v = {}
-file_path = f'../exp/embedding/problems/p50.cnf'
+file_path = f'../exp/embedding/problems/p{num_vars}.cnf'
 clauses, v = utils.parse_cnf_file(file_path)
 for i in most_seen_v:
     o_list = {}
     num_sols=0
     sample_set_str=""
     #with open(f'../exp/embedding/problems/p50_subembedding_sorted_solutions_v{i}.txt', 'r') as f:
-    with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v{i}.txt', 'r') as f:
+    with open(f'../exp/embedding/solutions/Q_subembedding/p{num_vars}_Qsubembedding_initial.txt', 'r') as f:
         lines=f.readlines()
         r=0
         while r<len(lines):
@@ -401,7 +424,7 @@ for o_v_name, o_optims in o_v.items():
     x_pos=[x+j*0.2 for x in list(o_optims.keys())]
     ax.bar(x_pos, o_optims.values(), label=o_v_name, width=0.2)
     j += 1
-ax.set_title('Optimum distribution for approach v_i in SAT\n num_vars=50')
+ax.set_title(f'Optimum distribution for approach v_i in SAT\n num_vars={num_vars}')
 ax.set_xlabel('Optimum difference')
 ax.set_ylabel('Percentage (%)')
 #ax.set_ylim(0,20)
@@ -420,7 +443,7 @@ for o_v_name, o_optims in o_v.items():
     x_pos=[x+j*0.2 for x in list(o_optims.keys())]
     ax.bar(x_pos, o_optims.values(), label=o_v_name, width=0.2)
     j += 1
-ax.set_title('Optimum distribution for approach v_i in QUBO\n num_vars=50')
+ax.set_title(f'Optimum distribution for approach v_i in QUBO\n num_vars={num_vars}')
 ax.set_xlabel('Optimum difference')
 ax.set_ylabel('Percentage (%)')
 #ax.set_ylim(0,20)
@@ -431,225 +454,225 @@ ax.legend()
 plt.show()
 
 # %%
-o_a = {}
-z=0
-file_path = f'../exp/embedding/problems/p50.cnf'
-clauses, v = utils.parse_cnf_file(file_path)
+# o_a = {}
+# z=0
+# file_path = f'../exp/embedding/problems/p{num_vars}.cnf'
+# clauses, v = utils.parse_cnf_file(file_path)
 
-approach_file = ['_solutions', '_subembedding_sorted_solutions_v1', '_subembedding2_solutions_v2', '_solutions_approach_emb_div8']
-approach = ['MinorMiner', 'v_i in SAT', 'v_i in QUBO', '(v_i,v_j) in SAT']
+# approach_file = ['_solutions', '_subembedding_sorted_solutions_v1', '_subembedding2_solutions_v2', '_solutions_approach_emb_div8']
+# approach = ['MinorMiner', 'v_i in SAT', 'v_i in QUBO', '(v_i,v_j) in SAT']
 
-for approach_f in approach_file:
-    o_list = {}
-    num_sols=0
-    sample_set_str=""
-    with open(f'../exp/embedding/problems/p50{approach_f}.txt', 'r') as f:
-        lines=f.readlines()
-        r=0
-        while r<len(lines):
-            sample_set_str=''
-            if lines[r].startswith('<bound'):
-                for k in range(r,len(lines)):
-                    if k==r:
-                        sample_set_str+=lines[r][55:]
-                    if lines[k].split()[0].startswith('(['):
-                        if lines[k+1].split()[0].startswith('(['):
-                            sample_set_str+=lines[k]
-                        if not lines[k+1].split()[0].startswith('(['):
-                            line=lines[k].replace(" ", "")
-                            sample_set_str+=line[:-2]
-                    if k!=r and not lines[k].split()[0].startswith('(['):
-                        break
-                r=k
-                num_sols+=1 #To know how many solutions we have generated
-                sample_set=eval(sample_set_str)
-                for sample in sample_set:
-                    assignment={i:sample[0][i] for i in range(len(sample[0]))}
-                    o_found = int(utils.count_unsatisfied_clauses(assignment, clauses))
-                    if o_found not in o_list.keys():
-                        o_list[o_found]=sample[-2]
-                    else:
-                        o_list[o_found]+=sample[-2]
-            r+=1
-    o_a[approach[z]]={key:value/num_sols for key, value in o_list.items()} #value/(num_sols*num_reads)*100%
-    z+=1
-
-# %%
-fig, ax = plt.subplots(figsize=(5, 5))
-
-j = -1
-k=0
-for o_a_name, o_optims in o_a.items():
-    x_pos=[x+j*0.2 for x in list(o_optims.keys())]
-    ax.bar(x_pos, o_optims.values(), label=approach[k], width=0.2)
-    j += 1
-    k+=1
-ax.set_title('Optimum distribution for approach v_i in QUBO\n num_vars=50')
-ax.set_xlabel('Optimum difference')
-ax.set_ylabel('Percentage (%)')
-#ax.set_ylim(0,20)
-#ax.set_xlim([1.4, 10.6])
-ax.set_xticks(np.arange(17))
-ax.legend()
-
-plt.show()
+# for approach_f in approach_file:
+#     o_list = {}
+#     num_sols=0
+#     sample_set_str=""
+#     with open(f'../exp/embedding/problems/p50{approach_f}.txt', 'r') as f:
+#         lines=f.readlines()
+#         r=0
+#         while r<len(lines):
+#             sample_set_str=''
+#             if lines[r].startswith('<bound'):
+#                 for k in range(r,len(lines)):
+#                     if k==r:
+#                         sample_set_str+=lines[r][55:]
+#                     if lines[k].split()[0].startswith('(['):
+#                         if lines[k+1].split()[0].startswith('(['):
+#                             sample_set_str+=lines[k]
+#                         if not lines[k+1].split()[0].startswith('(['):
+#                             line=lines[k].replace(" ", "")
+#                             sample_set_str+=line[:-2]
+#                     if k!=r and not lines[k].split()[0].startswith('(['):
+#                         break
+#                 r=k
+#                 num_sols+=1 #To know how many solutions we have generated
+#                 sample_set=eval(sample_set_str)
+#                 for sample in sample_set:
+#                     assignment={i:sample[0][i] for i in range(len(sample[0]))}
+#                     o_found = int(utils.count_unsatisfied_clauses(assignment, clauses))
+#                     if o_found not in o_list.keys():
+#                         o_list[o_found]=sample[-2]
+#                     else:
+#                         o_list[o_found]+=sample[-2]
+#             r+=1
+#     o_a[approach[z]]={key:value/num_sols for key, value in o_list.items()} #value/(num_sols*num_reads)*100%
+#     z+=1
 
 # %%
-o_v = {}
-file_path = f'../exp/embedding/problems/p50.cnf'
-clauses, v = utils.parse_cnf_file(file_path)
-o_list = {}
-num_sols=0
-z=0
-sample_set_str=""
-#with open(f'../exp/embedding/problems/p50_subembedding_sorted_solutions_v{i}.txt', 'r') as f:
-with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v2.txt', 'r') as f:
-    lines=f.readlines()
-    r=0
-    while r<len(lines):
-        sample_set_str=''
-        o_list={}
-        if lines[r].startswith('<bound'):
-            for k in range(r,len(lines)):
-                if k==r:
-                    sample_set_str+=lines[r][55:]
-                if lines[k].split()[0].startswith('(['):
-                    if lines[k+1].split()[0].startswith('(['):
-                        sample_set_str+=lines[k]
-                    if not lines[k+1].split()[0].startswith('(['):
-                        line=lines[k].replace(" ", "")
-                        sample_set_str+=line[:-2]
-                if k!=r and not lines[k].split()[0].startswith('(['):
-                    break
-            r=k
-            num_sols+=1 #To know how many solutions we have generated
-            sample_set=eval(sample_set_str)
-            for sample in sample_set:
-                assignment={i:sample[0][i] for i in range(len(sample[0]))}
-                o_found = int(utils.count_unsatisfied_clauses(assignment, clauses))
-                if o_found not in o_list.keys():
-                    o_list[o_found]=sample[-2]
-                else:
-                    o_list[o_found]+=sample[-2]
-            o_v[z]=o_list
-            z+=1
-        r+=1
+# fig, ax = plt.subplots(figsize=(5, 5))
+
+# j = -1
+# k=0
+# for o_a_name, o_optims in o_a.items():
+#     x_pos=[x+j*0.2 for x in list(o_optims.keys())]
+#     ax.bar(x_pos, o_optims.values(), label=approach[k], width=0.2)
+#     j += 1
+#     k+=1
+# ax.set_title('Optimum distribution for approach v_i in QUBO\n num_vars=50')
+# ax.set_xlabel('Optimum difference')
+# ax.set_ylabel('Percentage (%)')
+# #ax.set_ylim(0,20)
+# #ax.set_xlim([1.4, 10.6])
+# ax.set_xticks(np.arange(17))
+# ax.legend()
+
+# plt.show()
 
 # %%
-emb=[f'Embed {i}' for i in range(num_sols)]
-o_v = {key: dict(sorted(v.items())) for key, v in o_v.items()}
-m_l=max(len(v) for v in o_v.values())
-for key, value in o_v.items():
-    if len(value)!=m_l:
-        for k, i in enumerate(range(len(value), m_l)):
-            value[max(value.values())+k]=0
+# o_v = {}
+# file_path = f'../exp/embedding/problems/p50.cnf'
+# clauses, v = utils.parse_cnf_file(file_path)
+# o_list = {}
+# num_sols=0
+# z=0
+# sample_set_str=""
+# #with open(f'../exp/embedding/problems/p50_subembedding_sorted_solutions_v{i}.txt', 'r') as f:
+# with open(f'../exp/embedding/problems/p50_subembedding2_solutions_v2.txt', 'r') as f:
+#     lines=f.readlines()
+#     r=0
+#     while r<len(lines):
+#         sample_set_str=''
+#         o_list={}
+#         if lines[r].startswith('<bound'):
+#             for k in range(r,len(lines)):
+#                 if k==r:
+#                     sample_set_str+=lines[r][55:]
+#                 if lines[k].split()[0].startswith('(['):
+#                     if lines[k+1].split()[0].startswith('(['):
+#                         sample_set_str+=lines[k]
+#                     if not lines[k+1].split()[0].startswith('(['):
+#                         line=lines[k].replace(" ", "")
+#                         sample_set_str+=line[:-2]
+#                 if k!=r and not lines[k].split()[0].startswith('(['):
+#                     break
+#             r=k
+#             num_sols+=1 #To know how many solutions we have generated
+#             sample_set=eval(sample_set_str)
+#             for sample in sample_set:
+#                 assignment={i:sample[0][i] for i in range(len(sample[0]))}
+#                 o_found = int(utils.count_unsatisfied_clauses(assignment, clauses))
+#                 if o_found not in o_list.keys():
+#                     o_list[o_found]=sample[-2]
+#                 else:
+#                     o_list[o_found]+=sample[-2]
+#             o_v[z]=o_list
+#             z+=1
+#         r+=1
+
+# %%
+# emb=[f'Embed {i}' for i in range(num_sols)]
+# o_v = {key: dict(sorted(v.items())) for key, v in o_v.items()}
+# m_l=max(len(v) for v in o_v.values())
+# for key, value in o_v.items():
+#     if len(value)!=m_l:
+#         for k, i in enumerate(range(len(value), m_l)):
+#             value[max(value.values())+k]=0
     
-df = pd.DataFrame(o_v)
-print(df)
+# df = pd.DataFrame(o_v)
+# print(df)
 
 # %% [markdown]
 # ### Comparing embeding metrics
 
 # %%
-txt = [f'{p_dir}/p50_solutions.txt', f'{p_dir}/p50_subembedding_sorted_solutions_v1.txt', f'{p_dir}/p50_subembedding2_solutions_v2.txt']
-approach = ['default', 'v_1 in SAT', 'v_1 and v_2 in QUBO']
-chain_strength = {}
-chain_max_len = {}
-chain_length = {}
-sum_chain_length = {}
-k=0
-for file_name in txt:
-    chain_str = []
-    chain_max_l = []
-    chain_len = []
-    sum_chain_l = []
-    z=0
-    with open(file_name, 'r') as f:
-        lines = f.readlines()
-        for l in lines:
-            if l.startswith("{'embedding'"):
-                if z>=5:
-                    break
-                embedding = eval(l)
-                chain_str.append(embedding['chain_strength'])
-                chain_max_l.append(max(len(v) for v in embedding['embedding'].values()))
-                chain_l = {}
-                sum = 0
-                for v in embedding['embedding'].values():
-                    if len(v) in chain_l.keys():
-                        chain_l[len(v)]+=1
-                    else:
-                        chain_l[len(v)]=1
-                    sum+=len(v)
-                chain_len.append(chain_l)
-                sum_chain_l.append(sum)
-                z+=1
-    chain_strength[approach[k]] = chain_str
-    chain_max_len[approach[k]] = chain_max_l
-    chain_length[approach[k]] = chain_len
-    sum_chain_length[approach[k]] = sum_chain_l
-    k+=1
+# txt = [f'{p_dir}/p50_solutions.txt', f'{p_dir}/p50_subembedding_sorted_solutions_v1.txt', f'{p_dir}/p50_subembedding2_solutions_v2.txt']
+# approach = ['default', 'v_1 in SAT', 'v_1 and v_2 in QUBO']
+# chain_strength = {}
+# chain_max_len = {}
+# chain_length = {}
+# sum_chain_length = {}
+# k=0
+# for file_name in txt:
+#     chain_str = []
+#     chain_max_l = []
+#     chain_len = []
+#     sum_chain_l = []
+#     z=0
+#     with open(file_name, 'r') as f:
+#         lines = f.readlines()
+#         for l in lines:
+#             if l.startswith("{'embedding'"):
+#                 if z>=5:
+#                     break
+#                 embedding = eval(l)
+#                 chain_str.append(embedding['chain_strength'])
+#                 chain_max_l.append(max(len(v) for v in embedding['embedding'].values()))
+#                 chain_l = {}
+#                 sum = 0
+#                 for v in embedding['embedding'].values():
+#                     if len(v) in chain_l.keys():
+#                         chain_l[len(v)]+=1
+#                     else:
+#                         chain_l[len(v)]=1
+#                     sum+=len(v)
+#                 chain_len.append(chain_l)
+#                 sum_chain_l.append(sum)
+#                 z+=1
+#     chain_strength[approach[k]] = chain_str
+#     chain_max_len[approach[k]] = chain_max_l
+#     chain_length[approach[k]] = chain_len
+#     sum_chain_length[approach[k]] = sum_chain_l
+#     k+=1
 
 # %%
-data={'chain_str': chain_strength, 'chain_max_len': chain_max_len, 'sum_chain_len': sum_chain_length}
-df=pd.DataFrame(data, approach)
-display(df)
+# data={'chain_str': chain_strength, 'chain_max_len': chain_max_len, 'sum_chain_len': sum_chain_length}
+# df=pd.DataFrame(data, approach)
+# display(df)
 
 # %%
-for approach, solutions  in chain_length.items():
-    data={}
-    m_l=max(len(v) for solution in solutions)
-    for j, solution in enumerate(solutions):
-        if len(solution)!=m_l:
-            for k, i in enumerate(range(len(solution), m_l)):
-                solution[max(solution.values())+k]=None
-        data[j]=dict(sorted(solution.items()))
-    print('For the approach: ', approach)
-    df=pd.DataFrame(data)
-    display(df)
+# for approach, solutions  in chain_length.items():
+#     data={}
+#     m_l=max(len(v) for solution in solutions)
+#     for j, solution in enumerate(solutions):
+#         if len(solution)!=m_l:
+#             for k, i in enumerate(range(len(solution), m_l)):
+#                 solution[max(solution.values())+k]=None
+#         data[j]=dict(sorted(solution.items()))
+#     print('For the approach: ', approach)
+#     df=pd.DataFrame(data)
+#     display(df)
 
 # %% [markdown]
 # ### Scaling bqm and test Enery gap
 
 # %%
-instance = CJ2.CJ2("../exp/embedding/problems/p"+str(num_vars)+".cnf")
-instance.fillQ()
-h, J, e = dimod.qubo_to_ising(instance.Q)
-bqm = dimod.BinaryQuadraticModel.from_ising(h,J)
+# instance = CJ2.CJ2("../exp/embedding/problems/p"+str(num_vars)+".cnf")
+# instance.fillQ()
+# h, J, e = dimod.qubo_to_ising(instance.Q)
+# bqm = dimod.BinaryQuadraticModel.from_ising(h,J)
 
-embedding = []
-with open("../exp/embedding/problems/p"+str(num_vars)+"_solutions.txt", "r") as f:
-    lines = f.readlines()
-    for line in lines:
-        if line.startswith("{'embedding':"):
-            line=eval(line)
-            embedding.append(line['embedding'])
+# embedding = []
+# with open("../exp/embedding/problems/p"+str(num_vars)+"_solutions.txt", "r") as f:
+#     lines = f.readlines()
+#     for line in lines:
+#         if line.startswith("{'embedding':"):
+#             line=eval(line)
+#             embedding.append(line['embedding'])
 
-for i in range(len(embedding)):
-    bqm_emb = dwave.embedding.embed_bqm(source_bqm=bqm, embedding=embedding[i], target_adjacency=DWaveSampler().adjacency)
+# for i in range(len(embedding)):
+#     bqm_emb = dwave.embedding.embed_bqm(source_bqm=bqm, embedding=embedding[i], target_adjacency=DWaveSampler().adjacency)
     
-    J_per_qubit = {}
-    for key, value in bqm_emb.quadratic.items():
-        if key[0] in J_per_qubit.keys():
-            J_per_qubit[key[0]]+=value
-        else:
-            J_per_qubit[key[0]]=value
-        if key[1] in J_per_qubit.keys():
-            J_per_qubit[key[1]]+=value
-        else:
-            J_per_qubit[key[1]]=value            
-    coupling_limit = max(max(max(J_per_qubit.values())/15,0),max(min(J_per_qubit)/(-18),0))
-    auto_scale = max(max(max(bqm_emb.linear.values())/4,0),max(min(bqm_emb.linear.values())/(-4),0),max(max(bqm_emb.quadratic.values())/1,0),max(min(bqm_emb.quadratic.values())/(-2),0),coupling_limit)
+#     J_per_qubit = {}
+#     for key, value in bqm_emb.quadratic.items():
+#         if key[0] in J_per_qubit.keys():
+#             J_per_qubit[key[0]]+=value
+#         else:
+#             J_per_qubit[key[0]]=value
+#         if key[1] in J_per_qubit.keys():
+#             J_per_qubit[key[1]]+=value
+#         else:
+#             J_per_qubit[key[1]]=value            
+#     coupling_limit = max(max(max(J_per_qubit.values())/15,0),max(min(J_per_qubit)/(-18),0))
+#     auto_scale = max(max(max(bqm_emb.linear.values())/4,0),max(min(bqm_emb.linear.values())/(-4),0),max(max(bqm_emb.quadratic.values())/1,0),max(min(bqm_emb.quadratic.values())/(-2),0),coupling_limit)
     
-    bqm_emb.scale(1/(auto_scale))
+#     bqm_emb.scale(1/(auto_scale))
     
-    response = DWaveSampler(token='Your token').sample(bqm_emb, num_reads=100, annealing_time=100, reduce_intersample_correlation=True, auto_scale=False)
-    with open(p_dir / ("p"+str(num_vars)+"_solutions_scaled.txt"),"w") as f:
-        f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
-        f.write("e "+str(response.first.energy)+"\n")
-        f.write("v "+str(response.first.sample)+"\n")
-        f.write(str(response.info['embedding_context'])+"\n")
-        f.write(str(response.samples)+"\n")
+#     response = DWaveSampler(token='Your token').sample(bqm_emb, num_reads=100, annealing_time=100, reduce_intersample_correlation=True, auto_scale=False)
+#     with open(p_dir / ("p"+str(num_vars)+"_solutions_scaled.txt"),"w") as f:
+#         f.write("o "+str(utils.count_unsatisfied_clauses(response.first.sample, instance.clauses))+"\n")
+#         f.write("e "+str(response.first.energy)+"\n")
+#         f.write("v "+str(response.first.sample)+"\n")
+#         f.write(str(response.info['embedding_context'])+"\n")
+#         f.write(str(response.samples)+"\n")
 
 # %%
 
