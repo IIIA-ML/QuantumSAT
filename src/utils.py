@@ -137,13 +137,8 @@ def get_non_zero_coupings(Q):
 
 
 def get_embedding(Q, token, random_seed=10):
-    couplings = []
-    for key, value in Q.items():
-        if key[0] != key[1]:
-            if value != 0:
-                couplings.append(key)
     try:
-        embedding = find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=random_seed)
+        embedding = find_embedding(Q, DWaveSampler(token=token).edgelist, random_seed=random_seed)
     except Exception as e:
         embedding = None
     
@@ -151,9 +146,10 @@ def get_embedding(Q, token, random_seed=10):
 
 
 
-def solve_with_DWave(Q):    
+def solve_with_DWave(Q):
+    Q_new = {k: v for k, v in instance.Q.items() if (k[0] != k[1] and v != 0) or k[0] == k[1]}
     sampler = EmbeddingComposite(DWaveSampler(token='Your token'))
-    response = sampler.sample_qubo(Q, num_reads=100, annealing_time=100, reduce_intersample_correlation=True)
+    response = sampler.sample_qubo(Q_new, num_reads=100, annealing_time=100, reduce_intersample_correlation=True)
 
     return response
 
@@ -167,7 +163,7 @@ def count_unsatisfied_clauses(assignment, clauses):
                 count += 1
                 break
                 
-    return len(clauses)-count
+    return str(len(clauses)-count)
 
 
 
