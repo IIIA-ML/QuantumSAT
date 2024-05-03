@@ -19,6 +19,8 @@ import Nuesslein1
 import Nuesslein2
 import CJ1
 import CJ2
+import CJ2_bian
+import CJ1_bian
 import utils
 from pathlib import Path
 import numpy as np
@@ -29,6 +31,7 @@ import dwave_networkx as dnx
 from dwave.system import DWaveSampler, EmbeddingComposite, FixedEmbeddingComposite
 from minorminer import find_embedding
 import matplotlib.pyplot as plt
+import random
 
 # %% [markdown]
 # ### Testing if bqm/scaling = bqm_emb/scaling
@@ -82,7 +85,8 @@ def find_suboptimums_clauses_aux(assignment, clauses, V):
 import itertools
 
 def generate_possible_solutions(variables):
-    return itertools.product([1, -1], repeat=variables)
+    return [list(s) for s in itertools.product([1, -1], repeat=variables)]
+    
 
 def evaluate_energy(bqm, solution):
     energy = 0
@@ -92,6 +96,8 @@ def evaluate_energy(bqm, solution):
         energy += bias * solution[v]
     return energy
 
+
+# %%
 def solve_bqm_all_solutions(bqm):
     all_solutions = []
     
@@ -104,15 +110,69 @@ def solve_bqm_all_solutions(bqm):
     
     return all_solutions
 
-with open('../exp/e3/CNF_test.cnf', 'w') as f:
-    f.write('c generated problem\np cnf 3 7\n')
-    f.write('1 2 3 0\n1 2 -3 0\n1 -2 3 0\n1 -2 -3 0\n-1 2 3 0\n-1 -2 3 0\n -1 2 -3 0')
+
+# %%
+#Solve bian problem (1. Solve with maxsatz and get assignment for problem variables. 2. itertools for all possible auxiliar assignments)
+def solve_bqm_two_optims_bian(bqm, variables, clauses, V):
+    aux = len(clauses)
+    energy = {0:{}, 1:{}}
+    o=0
+    file_path = '../exp/e3/CNF_maxsat.cnf'
+    solutions_var={0:[], 1:[]}
+    
+    while o<2:
+        with open(file_path, 'w') as f:
+            f.write(f'c generated problem\np cnf {V} {len(clauses)}\n')
+            for c in clauses:
+                f.write(f'{c[0]} {c[1]} {c[2]} 0\n')
+        
+        response = !./../src/maxsatz {file_path}
+
+        for line in reversed(response):
+            if line.startswith('v'):
+                clauses.append([-l for l in list(map(int, line.split()[1:-1]))])
+                assignment = {abs(v): 1 if v>0 else -1 for v in list(map(int, line.split()[1:-1]))}
+            if line.startswith('o'):
+                o = int(line.split()[1])
+                break
+
+        if o in solutions_var.keys():
+            solution_var=[]
+            for i, v in variables.items():
+                solution_var.append(assignment[v])
+            solutions_var[o].append(solution_var)
+
+    solutions_aux = generate_possible_solutions(aux)
+
+    for o in range(2):
+        for solution_v in solutions_var[o]:
+            for solution_a in solutions_aux:
+                solution = solution_v+solution_a
+                e = evaluate_energy(bqm, solution)
+                if e not in energy[o].keys():
+                    energy[o][e] = 1
+                else:
+                    energy[o][e] += 1
+    return energy
+
+
+# %%
+file_path = '../exp/e3/CNF_test.cnf'
+with open(file_path, 'w') as f:
+    #f.write('c generated problem\np cnf 3 7\n')
+    #f.write('1 2 3 0\n1 2 -3 0\n1 -2 3 0\n1 -2 -3 0\n-1 2 3 0\n-1 -2 3 0\n -1 2 -3 0')
+    #f.write('c generated problem\np cnf 5 3\n')
+    #f.write('1 2 3 0\n-1 4 5 0\n1 2 -5 0')
+    random.seed(901)
+    f.write(utils.generate_3sat(4, ratio=4.2))
 
 gadgets = {
     #'Nuesslein1': Nuesslein1,
     #'Nuesslein2': Nuesslein2,
-    'CJ1': CJ1,
+    #'CJ1': CJ1,
     #'CJ2': CJ2,
+    'CJ2_bian': CJ2_bian,
+    #'CJ1_bian': CJ1_bian
 }
 #Information for experiment 1
 n_vars=[5] #[5,10,12,20,50]
@@ -125,30 +185,62 @@ for g, g_module in gadgets.items():
             instance.fillQ()
             Q = instance.Q
             h, J, e = dimod.qubo_to_ising(Q)
-            print(h)
-            print(J)
             bqm = dimod.BinaryQuadraticModel.from_ising(h,J)
-            print(bqm)
             variables = sorted(bqm.variables)
-            #bqm = dimod.BinaryQuadraticModel.from_qubo(Q)
+            couplings=[]
+            for k in Q.keys():
+                if k[0]!=k[1]:
+                    couplings.append(k)
+            embedding = find_embedding(couplings, DWaveSampler().edgelist, random_seed=10)
+            bqm_emb = dwave.embedding.embed_bqm(source_bqm=bqm, embedding=embedding, target_adjacency=DWaveSampler().adjacency)
+            J_max = max(bqm_emb.quadratic.values())
+            J_min = min(bqm_emb.quadratic.values())
+            h_max = max(bqm_emb.linear.values())
+            h_min = min(bqm_emb.linear.values())
+            print(J_max)
+            print(J_min)
+            print(h_max)
+            print(h_max)
+            J_per_qubit = {}
+            for key, value in bqm_emb.quadratic.items():
+                if key[0] in J_per_qubit.keys():
+                    J_per_qubit[key[0]]+=value
+                else:
+                    J_per_qubit[key[0]]=value
+                if key[1] in J_per_qubit.keys():
+                    J_per_qubit[key[1]]+=value
+                else:
+                    J_per_qubit[key[1]]=value            
+            coupling_limit = max(max(max(J_per_qubit.values())/15,0),max(min(J_per_qubit)/(-18),0))
+            aut_sc = max(max(max(bqm_emb.linear.values())/4,0),max(min(bqm_emb.linear.values())/(-4),0),max(max(bqm_emb.quadratic.values())/1,0),max(min(bqm_emb.quadratic.values())/(-2),0),coupling_limit)
 
-# Solve for all possible solutions
-all_solutions = solve_bqm_all_solutions(bqm)
+            if g!='CJ1_bian' and g!='CJ2_bian' and aut_sc>1:
+                bqm.scale(1/aut_sc)
 
-# Print all solutions
-o_distr = {}
-for solution, energy in all_solutions:
-    print(f"Solution: {solution}, Energy: {energy}")
+print(aut_sc)
+if g=='CJ2_bian' or g=='CJ1_bian':
+    variables = {i:v for i,v in instance.variables.items() if i<3*len(instance.clauses)}
+    o_distr = solve_bqm_two_optims_bian(bqm, variables, instance.clauses, instance.V)
+else:    
+    # Solve for all possible solutions
+    all_solutions = solve_bqm_all_solutions(bqm)
     
-    assignment={variables[j]:solution[j] if solution[j]!=-1 else 0 for j in range(len(solution))}
-    o = int(utils.count_unsatisfied_clauses(assignment, instance.clauses))
-    if o not in o_distr.keys():
-        o_distr[o] = {energy: 1}
-    else:
-        if energy not in o_distr[o].keys():
-            o_distr[o][energy] = 1
+    # Print all solutions
+    o_distr = {}
+    for solution, energy in all_solutions:
+        #print(f"Solution: {solution}, Energy: {energy}")
+        if g=='CJ2_bian':
+            assignment = {instance.variables[j]-1: solution[j] if solution[j]!=-1 else 0 for j in range(len(solution))}
         else:
-            o_distr[o][energy] += 1
+            assignment={variables[j]:solution[j] if solution[j]!=-1 else 0 for j in range(len(solution))}
+        o = int(utils.count_unsatisfied_clauses(assignment, instance.clauses))
+        if o not in o_distr.keys():
+            o_distr[o] = {energy: 1}
+        else:
+            if energy not in o_distr[o].keys():
+                o_distr[o][energy] = 1
+            else:
+                o_distr[o][energy] += 1
 o_distr = dict(sorted(o_distr.items()))
 print('Energy distribution for each optimum:\n', o_distr)
 o_distr_pond_mean = {}
@@ -158,7 +250,18 @@ for o, distr in o_distr.items():
 o_distr_pond_mean = dict(sorted(o_distr_pond_mean.items()))
 print('Energy ponderate mean for each optimum:\n', o_distr_pond_mean)
 
-print('-----------------------------------------------------\nStudying suboptimal distribution for all the clauses (including Auxiliar Variables!)')
+x_energies = set(list(o_distr[0].keys())+list(o_distr[1].keys()))
+
+plt.bar(o_distr[0].keys(), o_distr[0].values(), width=0.8, align='edge', color='b', label='o0')
+plt.bar(o_distr[1].keys(), o_distr[1].values(), width=-0.8, align='edge', color='r', label='o1')
+#plt.xticks(np.arange(min(x_energies)-1/aut_sc, max(x_energies)+1/aut_sc, 1/aut_sc))
+plt.title(f'{g}')# ; scale_factor: {aut_sc}')
+plt.xlabel('Energy')
+plt.ylabel('Ocurrencia')
+plt.legend()
+plt.show()
+
+print('-----------------------------------------------------\nStudying suboptimal distribution for all the clauses (including Auxiliar Variables! We write all the clauses after applying gadget)')
 o_distr_clausesaux = {}
 for solution, energy in all_solutions:
     o = int(find_suboptimums_clauses_aux(assignment, instance.clauses, instance.V))
@@ -178,8 +281,6 @@ for o, distr in o_distr_clausesaux.items():
 o_distr_clausesaux_pond_mean = dict(sorted(o_distr_clausesaux_pond_mean.items()))
 print('Energy ponderate mean for each optimum:\n', o_distr_clausesaux_pond_mean)
 
-
-# %%
 
 # %% [markdown]
 # ### Solve QUBO Embedding composite with autoscaling
@@ -332,7 +433,7 @@ for g, g_module in gadgets.items():
             auto_scale.append(1/aut_sc)
             if aut_sc>1.0:
                 Q = {k: v/aut_sc for k,v in Q.items()}
-                sampler = FixedEmbeddingComposite(DWaveSampler(token='DEV-291d80af600d6eb433a8019c579070ba37436e9a'), embedding=embedding)
+                sampler = FixedEmbeddingComposite(DWaveSampler(token='Your token'), embedding=embedding)
                 response = sampler.sample_qubo(Q, num_reads=100, annealing_time=100, return_embedding=True, reduce_intersample_correlation=True, auto_scale=False)
             else:
                 sampler = FixedEmbeddingComposite(DWaveSampler(token='Your token'), embedding=embedding)
@@ -415,8 +516,8 @@ gadgets = {
     'CJ2': CJ2,
 }
 #Information for experiment 1
-n_vars=[5, 12, 50] #[5,10,12,20,50]
-num_instances = 1
+n_vars=[12] #[5, 12, 50] #[5,10,12,20,50]
+num_instances = 20
 for g, g_module in gadgets.items():
     for vars in n_vars:
         auto_scale=[]
@@ -484,17 +585,24 @@ for g, g_module in gadgets.items():
                 response = sampler.sample(bqm_emb, num_reads=100, annealing_time=100, return_embedding=True, reduce_intersample_correlation=True, auto_scale=False)
             
             assignment = {}
+            majority_vote = {var: [0,0,len(q)] for var, q in embedding.items()}
             for qubit, value in response.first.sample.items():
                 for var, q in embedding.items():
                     if qubit in q:
-                        if value==-1:
-                            assignment[var] = value+1
-                        else:
-                            assignment[var] = value
-                        #if var in assignment.keys() and value!= assignment[var]:
-                            #print('ERROR')
-                        break
-            dir = f'../exp/e3/dwave_scaling/{g}/p{vars}'
+                        if value==1:
+                            majority_vote[var][0]+=1
+                        if value!=1:
+                            majority_vote[var][1]+=1
+                        if majority_vote[var][0]>majority_vote[var][2]/2:
+                            assignment[var] = 1
+                            break
+                        if majority_vote[var][1]>majority_vote[var][2]/2:
+                            assignment[var] = 0
+                            break
+                        if majority_vote[var][0]==majority_vote[var][2]/2 and majority_vote[var][0]+majority_vote[var][1]==majority_vote[var][2]:
+                            assignment[var] = random.choice([0,1])
+                            break
+            dir = f'../exp/e3/dwave_scaling/{g}/p{vars}/bqm_emb_scale'
             p_dir = Path(dir)
             p_dir.mkdir(parents=True, exist_ok=True)
             with open(f'{dir}/p{vars}_{i}_bqm_emb_scale.txt', 'w') as file:
@@ -560,11 +668,19 @@ for g, g_module in gadgets.items():
                 for j, value in enumerate(sample[0]):
                     for var, q in embedding.items():
                         if variables[j] in q:
-                            if value==-1:
+                            if value==1:
+                                majority_vote[var][0]+=1
+                            if value!=1:
+                                majority_vote[var][1]+=1
+                            if majority_vote[var][0]>majority_vote[var][2]/2:
+                                assignment[var] = 1
+                                break
+                            if majority_vote[var][1]>majority_vote[var][2]/2:
                                 assignment[var] = 0
-                            else:
-                                assignment[var] = value
-                            break
+                                break
+                            if majority_vote[var][0]==majority_vote[var][2]/2 and majority_vote[var][0]+majority_vote[var][1]==majority_vote[var][2]:
+                                assignment[var] = random.choice([0,1])
+                                break
                 
                 o = int(utils.count_unsatisfied_clauses(assignment, instance.clauses))
                 if o not in o_distr.keys():
@@ -790,18 +906,6 @@ for g, g_module in gadgets.items():
         print('Range problem pre-embed: ', count_i)
         print('Range problem post-embed: ', count_f)
         print('Autoscale needed: ', auto_scale)
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %%
 
 # %%
 
