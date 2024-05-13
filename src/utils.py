@@ -3,7 +3,6 @@ import numpy as np
 from pathlib import Path
 from dwave.system import DWaveSampler, EmbeddingComposite, FixedEmbeddingComposite
 from minorminer import find_embedding
-import neal
 from pathlib import Path
 import subprocess
 
@@ -177,3 +176,37 @@ def compare_with_exact(g, vars, i, o):
                 break
 
     return o-optimum
+
+
+def compute_scale_factor(bqm_embedded):
+    J_max = max(bqm_embedded.quadratic.values())
+    J_min = min(bqm_embedded.quadratic.values())
+    h_max = max(bqm_embedded.linear.values())
+    h_min = min(bqm_embedded.linear.values())
+    J_per_qubit = {}
+    for key, value in bqm_embedded.quadratic.items():
+        if key[0] in J_per_qubit.keys():
+            J_per_qubit[key[0]]+=value
+        else:
+            J_per_qubit[key[0]]=value
+        if key[1] in J_per_qubit.keys():
+            J_per_qubit[key[1]]+=value
+        else:
+            J_per_qubit[key[1]]=value
+    coupling_limit = max(max(max(J_per_qubit.values())/15,0),max(min(J_per_qubit)/(-18),0))
+    scale_factor = max(max(h_max/4,0),max(h_min/(-4),0),max(J_max/1,0),max(J_min/(-2),0),coupling_limit)
+    if scale_factor <= 1:
+        scale_factor = 1
+    return scale_factor
+
+def refactor_embedding_1_to_1(bqm):
+    embedding_bqm = {}
+    for k in bqm.linear.keys():
+        if k not in embedding_bqm.keys():
+            embedding_bqm[k] = [k]
+    for k in bqm.quadratic.keys():
+        if k[0] not in embedding_bqm.keys():
+            embedding_bqm[k[0]] = [k[0]]
+        if k[1] not in embedding_bqm.keys():
+            embedding_bqm[k[1]] = [k[1]]
+    return embedding_bqm
