@@ -262,74 +262,8 @@ if secure_question in ["Yes", "Y", "y", "yes"]:
     for gadget in gadgets:
         getattr(instance, gadget).solve_dwave_from_scaled_bqm_embedded(token, num_reads=100, annealing_time=100)
 
-
 # %%
 # instance.CJ1.response_dwave_from_scaled_bqm_embedded.samples
-
-# %% [markdown]
-# ## GUROBI: get K best solutions
-
-# %%
-def solve_gurobi(scaled_bqm_embedded, num_solutions=100):
-    qubits = list(scaled_bqm_embedded.variables)
-    q_names = list(map(str,scaled_bqm_embedded.variables))
-
-    model = Model(name = 'linear program')
-    q=model.addVars(qubits, name=q_names, vtype = GRB.INTEGER, lb=-1, ub=1)
-   
-    for qub in qubits:
-        model.addConstr(q[qub]*q[qub] == 1, name='non_zero')
-
-    obj_fn = LinExpr()
-    for (u, v), bias in scaled_bqm_embedded.quadratic.items():
-        obj_fn += bias * q[u] * q[v]
-    for v, bias in scaled_bqm_embedded.linear.items():
-        obj_fn += bias * q[v]
-    model.setObjective(obj_fn, GRB.MINIMIZE)
-
-    solutions = []
-    model.setParam(GRB.Param.PoolSolutions, num_solutions)
-    model.setParam(GRB.Param.PoolSearchMode, 2)
-    #model.setParam(GRB.Param.PoolGap, 100)
-    model.setParam(GRB.Param.Cutoff, GRB.INFINITY)
-    model.optimize()
-   
-    nSolutions = model.SolCount
-    # print(f"Number of solutions found: {nSolutions}")
-   
-    for e in range(nSolutions):
-        model.setParam(GRB.Param.SolutionNumber, e)
-   
-        # Status checking
-        status = model.Status
-        if status in (GRB.INF_OR_UNBD, GRB.INFEASIBLE, GRB.UNBOUNDED):
-            print("The model cannot be solved because it is infeasible or unbounded")
-            sys.exit(1)
-        if status != GRB.OPTIMAL:
-            print(f"Optimization was stopped with status {status}")
-            sys.exit(1)
-   
-        energy = model.PoolObjVal
-   
-        assignment = {}
-        for v in model.getVars():
-            if round(v.Xn)==1:
-                assignment[int(v.varName)] = 1
-            else:
-                assignment[int(v.varName)] = -1
-   
-        solutions.append([list(assignment.values()), energy])
-
-    return solutions
-
-
-# %%
-# for gadget in gadgets:
-#     start = time.time()
-#     gurobi_solutions = solve_gurobi(getattr(instance, gadget).scaled_bqm_embedded['scaled_bqm_embedded'], num_solutions=100)
-#     end = time.time()
-#     print(f"Computed GUROBI in {end-start:.2f} seconds for {gadget}")
-#     getattr(instance, gadget).gurobi_solutions['scaled_bqm_embedded'] = gurobi_solutions
 
 # %%
 
