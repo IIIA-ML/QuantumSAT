@@ -570,11 +570,11 @@ class CJ1_bian(Instance):
         for k in self.Q.keys():
             if k[0] != k[1]:
                 couplings.append(k)
-        embedding = find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=42, verbose=0, chain_strength=2)
+        embedding = find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=42, verbose=0)
         if not self.bqm:
             self.compute_bqm()
         bqm_embedded = dwave.embedding.embed_bqm(source_bqm=self.bqm, embedding=embedding,
-                                                              target_adjacency=DWaveSampler(token=token).adjacency)
+                                                              target_adjacency=DWaveSampler(token=token).adjacency, chain_strength=2)
         self.bqm_embedded['bqm_embedded'] = bqm_embedded
         self.bqm_embedded['embedding'] = embedding
         return {'bqm_embedded': bqm_embedded, 'embedding': embedding}
@@ -690,7 +690,7 @@ class CJ2_bian(Instance):
         if not self.bqm:
             self.compute_bqm()
         bqm_embedded = dwave.embedding.embed_bqm(source_bqm=self.bqm, embedding=embedding,
-                                                              target_adjacency=DWaveSampler(token=token).adjacency)
+                                                              target_adjacency=DWaveSampler(token=token).adjacency, chain_strength=2)
         self.bqm_embedded['bqm_embedded'] = bqm_embedded
         self.bqm_embedded['embedding'] = embedding
         return {'bqm_embedded': bqm_embedded, 'embedding': embedding}
