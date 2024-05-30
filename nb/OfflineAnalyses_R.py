@@ -19,10 +19,11 @@ import matplotlib.pyplot as plt
 import dimod
 import pandas as pd
 from IPython.display import Image
+from pathlib import Path
 
 
 # %%
-num_vars = 25
+num_vars = 50
 
 # %%
 with open(f'../exp/eBeyond/p{num_vars}.cnf.pkl', 'rb') as f:
@@ -55,6 +56,7 @@ for gadget in gadgets:
 # # Chain_length distribution
 
 # %%
+max_len = 0
 num_gadgets = len(gadgets)
 bar_width = 1 / (num_gadgets + 1)  # Width of each bar
 
@@ -133,7 +135,7 @@ def unchain_dwave_solutions(sample_set, embedding):
 
 
 # %%
-def groupby_subopt(sample_set, embedding, SAT_num_vars, gadget):
+def groupby_subopt(sample_set, embedding, SAT_num_vars, gadget, instance):
     solutions_bqm_embedded_df_aux = unchain_dwave_solutions(sample_set, embedding)
     solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
     if gadget != "CJ1_bian" and gadget != "CJ2_bian":
@@ -155,7 +157,7 @@ def groupby_subopt(sample_set, embedding, SAT_num_vars, gadget):
 
 # %%
 for gadget in gadgets:
-    grouped_dfs = groupby_subopt(sample_set=getattr(instance, gadget).response_dwave_from_scaled_bqm_embedded, embedding=getattr(instance, gadget).bqm_embedded['embedding'], SAT_num_vars=num_vars, gadget=gadget)
+    grouped_dfs = groupby_subopt(sample_set=getattr(instance, gadget).response_dwave_from_scaled_bqm_embedded, embedding=getattr(instance, gadget).bqm_embedded['embedding'], SAT_num_vars=num_vars, gadget=gadget, instance=instance)
     for group_key, sub_opt_df in grouped_dfs:
         if group_key in ['0', '1']:
             plt.bar(np.unique(np.round(sub_opt_df['Real Energy'].values, 2), return_counts=True)[0],
@@ -236,5 +238,181 @@ print(len(solutions[0][0]))
 sample_set = instance.Nuesslein2.response_dwave_from_scaled_bqm_embedded
 print(len(sample_set.to_pandas_dataframe().axes[1]))
 print(sample_set.to_pandas_dataframe().axes[1])
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %% [markdown]
+# ## Compute Table 3 paper with Bian
+
+# %%
+# Aixo es fent la mitja de tooots els shots (no es la Taula 3)
+gadgets = ["CJ2_bian"]
+for gadget in gadgets:
+    mean_satisfied_clauses_per_instance = []
+    for i in range(1):    
+        with open(f'../exp/eBeyond/Pickles/p5/p5-{i}.pkl', 'rb') as f:
+            p5 = pickle.load(f)
+        solutions_bqm_embedded_df_aux = unchain_dwave_solutions(sample_set=getattr(p5, gadget).response_dwave_from_scaled_bqm_embedded, embedding=getattr(p5, gadget).bqm_embedded['embedding'])
+        solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
+        print(solutions_bqm_embedded_df)
+    #     if gadget != "CJ1_bian" and gadget != "CJ2_bian":
+    #         assigment_df = solutions_bqm_embedded_df[np.arange(0,50)]
+    #     else:
+    #         assigment_df = solutions_bqm_embedded_df
+    #     num_unsatisfied_clauses = []
+    #     for _, row in assigment_df.iterrows():
+    #         assigment = dict(row)
+    #         # print(assigment)
+    #         if gadget != "CJ1_bian" and gadget != "CJ2_bian":
+    #             o = count_unsatisfied_clauses(assigment, p50.clauses)
+    #         else:
+    #             o = count_unsatisfied_clauses_bian(assigment, p50.clauses)
+    #         num_unsatisfied_clauses.append(210-int(o))
+    #     
+    #     # print(np.unique(num_unsatisfied_clauses, return_counts=True))
+    #     # print(np.mean(num_unsatisfied_clauses))
+    #     mean_satisfied_clauses_per_instance.append(np.mean(num_unsatisfied_clauses))
+    # print(np.round(np.mean(mean_satisfied_clauses_per_instance), 2))
+
+# %%
+print("BIAN EMBEDDING:",p5.CJ2_bian.bian_embedding) #{variable literal: variable sat}
+# Necessitem {variable sat: [variable_literal_1, variable_literal_2, ...]} per poder cridar el unchain_dwave
+refactored_bian_embedding = {}
+for key, value in p5.CJ2_bian.bian_embedding.items():
+    if value not in refactored_bian_embedding.keys():
+        refactored_bian_embedding[value] = [key]
+    else:
+        refactored_bian_embedding[value].append(key)
+
+print("REFACTORED BIAN EMBEDDING:",refactored_bian_embedding)
+print("DWAVE EMBEDDING:", p5.CJ2_bian.bqm_embedded["embedding"])
+real_embedding = {}
+for key, values in refactored_bian_embedding.items():
+    # Initialize a list to store the combined values
+    combined_values = []
+    # Iterate over each value in the list from the bian dictionary
+    for value in values:
+        # Extend the combined_values list with the list from the emb dictionary
+        combined_values.extend(p5.CJ2_bian.bqm_embedded['embedding'].get(value, []))
+    # Assign the combined list to the key in the new dictionary
+    real_embedding[key] = combined_values
+print("FINAL EMBEDDING:",real_embedding)
+
+unchain_dwave_solutions(p5.CJ2_bian.response_dwave_from_scaled_bqm_embedded, real_embedding)
+
+# %%
+majority_voting_dict = {}
+for key, value in real_embedding.items():
+    print(key, value)
+    chain_length = len(value)
+    print(chain_length)
+    chain_df = dimod.keep_variables(p5.CJ2_bian.response_dwave_from_scaled_bqm_embedded, value).to_pandas_dataframe().iloc[:,0:chain_length]
+    print(chain_df)
+    print(np.unique(chain_df.iloc[1,:].values, return_counts=True))
+    break
+    majority_voting_dict[key] = chain_df.mode(axis=1)[0]
+    
+            
+    solutions_bqm_embedded_df = pd.DataFrame(majority_voting_dict)
+
+# %%
+solutions_bqm_embedded_df_aux = unchain_dwave_solutions(p5.CJ2_bian.response_dwave_from_scaled_bqm_embedded, real_embedding)
+solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
+
+
+# %%
+def count_unsatisfied_clauses_bian(assignment, clauses):
+    count = 0
+    for c in clauses:
+        for l in c:
+            if (l > 0 and assignment[np.abs(l)] == 1) or (l < 0 and assignment[np.abs(l)] == -1):
+                count += 1
+                break
+    return str(len(clauses)-count)
+
+
+# %%
+unsatisfied_clauses = []
+for _, row in solutions_bqm_embedded_df.iterrows():
+    assigment = dict(row)
+    # print(assigment)
+    # print(assigment[1])
+    o = count_unsatisfied_clauses_bian(assigment, p50.clauses)
+
+    unsatisfied_clauses.append(int(o))
+
+np.mean(unsatisfied_clauses)
+
+# %%
+assigment = solutions_bqm_embedded_df.iloc[1,]
+print(assigment)
+
+count_unsatisfied_clauses_bian(assigment, p50.clauses)
+
+# %%
+#S'ha de mirar un probema més petit i seguir què fan bian pas per pas i comparar-ho amb CJ2
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+# La Taula 3 es fent la mitja del millor shot per cada instancia
+gadgets = ["CJ2"]
+for gadget in gadgets:
+    mean_satisfied_clauses_per_instance = []
+    for i in range(20):    
+        with open(f'../exp/eBeyond/Pickles/p50/p50-{i}.pkl', 'rb') as f:
+            p50 = pickle.load(f)
+        solutions_bqm_embedded_df_aux = unchain_dwave_solutions(sample_set=getattr(p50, gadget).response_dwave_from_scaled_bqm_embedded, embedding=getattr(p50, gadget).bqm_embedded['embedding'])
+        solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
+        # if gadget != "CJ1_bian" and gadget != "CJ2_bian":
+        #     assigment_df = solutions_bqm_embedded_df[np.arange(0,50)]
+        # else:
+        #     assigment_df = solutions_bqm_embedded_df
+        assigment_df = solutions_bqm_embedded_df
+        num_unsatisfied_clauses = []
+        row = solutions_bqm_embedded_df.iloc[0,]
+        assigment = dict(row)
+        # if gadget != "CJ1_bian" and gadget != "CJ2_bian":
+        #     o = count_unsatisfied_clauses(assigment, p50.clauses)
+        # else:
+        #     o = count_unsatisfied_clauses_bian(assigment, p50.clauses)
+        o = count_unsatisfied_clauses(assigment, p50.clauses)
+        print(o)
+        num_unsatisfied_clauses.append(210-int(o))
+        
+        # print(np.unique(num_unsatisfied_clauses, return_counts=True))
+        # print(np.mean(num_unsatisfied_clauses))
+        mean_satisfied_clauses_per_instance.append(np.mean(num_unsatisfied_clauses))
+    print(np.round(np.mean(mean_satisfied_clauses_per_instance), 2))
+
+# %%
+solutions_bqm_embedded_df.iloc[0,]
+
+# %%
+#Exact solver (Maxsatz)
+exact_num_satisfied_clauses_per_instance = []
+for i in range(20):
+    dir = '../exp/eBeyond/Problems/p5'
+    p_dir = Path(dir)
+    file_name = f'{dir}/p{5}-{i}.cnf'
+    response = !./../src/maxsatz {file_name}
+    o = int((str(response).split("(minimum number of unsatisfied clauses) = ")[1].split("'")[0]))
+    exact_num_satisfied_clauses_per_instance.append(21-o)
+
+
+# %%
+np.mean(exact_num_satisfied_clauses_per_instance)
 
 # %%
