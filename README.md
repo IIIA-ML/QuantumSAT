@@ -7,9 +7,10 @@ This repo contains code for SAT solvers on quantum computers.
 Currently only Linux is supported (Windows users can use WSL)
 
 1. Clone the repo
-2. source bin/init-local.sh
-3. dwave setup
-4. You can launch jupyter from console.
+2. Make sure you have python3.10 installed as well as the python3.10-dev and python3.10-venv packages. You can get them by adding  deadsnakes ppa to your sources in apt.
+3. `source bin/init-local.sh`
+4. `dwave setup`
+5. You can launch jupyter from console.
 
 
 After 3.: Answer 'Y' to All and then paste the Solver API token (it is in your Dashboard of D-Wave Leap)
