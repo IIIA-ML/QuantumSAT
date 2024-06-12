@@ -4,6 +4,7 @@ import dimod
 from minorminer import find_embedding
 from dwave.system import DWaveSampler, FixedEmbeddingComposite
 import dwave.embedding
+import random
 
 
 class Instance:
@@ -11,6 +12,8 @@ class Instance:
         self.file_path = file_path
         if file_path is not None:
             self.clauses, self.N = utils.parse_cnf_file(file_path)
+            for clause in self.clauses:
+                random.shuffle(clause)
         else:
             self.clauses = clauses,
             self.N = N
@@ -497,6 +500,7 @@ class CJ1_bian(Instance):
         self.b = int(3*len(self.clauses))
         self.Q = {}
         self.bian_embedding = {}
+        self.refactored_bian_embedding = {}
         self.sign = []
         self.bqm = None
         self.bqm_embedded = {}
@@ -536,9 +540,9 @@ class CJ1_bian(Instance):
         for v in range(1,self.N+1):
             repeated_variables = sorted([i for i, variable in self.bian_embedding.items() if variable==v])
             for j in range(len(repeated_variables)-1):
-                self.add(repeated_variables[j], repeated_variables[j], v, v, 2*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
-                self.add(repeated_variables[j+1], repeated_variables[j+1], v, v, 2*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
-                self.add(repeated_variables[j], repeated_variables[j+1], v, v, -4*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j], repeated_variables[j], v, v, 4) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j+1], repeated_variables[j+1], v, v, 4) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j], repeated_variables[j+1], v, v, -8) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
 
     def solve(self, file_name):
         self.fillQ()
@@ -561,6 +565,13 @@ class CJ1_bian(Instance):
             self.fillQ()
         bqm = dimod.BinaryQuadraticModel.from_qubo(self.Q, offset=0).change_vartype("SPIN", True)
         self.bqm = bqm
+        refactored_bian_embedding = {}
+        for key, value in self.bian_embedding.items():
+            if value-1 not in refactored_bian_embedding.keys():
+                refactored_bian_embedding[value-1] = [key]
+            else:
+                refactored_bian_embedding[value-1].append(key)
+        self.refactored_bian_embedding = refactored_bian_embedding
         return bqm
 
     def compute_bqm_embedded(self, token):
@@ -613,6 +624,7 @@ class CJ2_bian(Instance):
         self.b = int(3*len(self.clauses))
         self.Q = {}
         self.bian_embedding = {}
+        self.refactored_bian_embedding = {}
         self.sign = []
         self.bqm = None
         self.bqm_embedded = {}
@@ -652,9 +664,9 @@ class CJ2_bian(Instance):
         for v in range(1,self.N+1):
             repeated_variables = sorted([i for i, variable in self.bian_embedding.items() if variable==v])
             for j in range(len(repeated_variables)-1):
-                self.add(repeated_variables[j], repeated_variables[j], v, v, 2*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
-                self.add(repeated_variables[j+1], repeated_variables[j+1], v, v, 2*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
-                self.add(repeated_variables[j], repeated_variables[j+1], v, v, -4*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j], repeated_variables[j], v, v, 4) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j+1], repeated_variables[j+1], v, v, 4) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
+                self.add(repeated_variables[j], repeated_variables[j+1], v, v, -8) #*self.sign[repeated_variables[j]]*self.sign[repeated_variables[j+1]])
 
     def solve(self, file_name):
         self.fillQ()
@@ -677,6 +689,13 @@ class CJ2_bian(Instance):
             self.fillQ()
         bqm = dimod.BinaryQuadraticModel.from_qubo(self.Q, offset=0).change_vartype("SPIN", True)
         self.bqm = bqm
+        refactored_bian_embedding = {}
+        for key, value in self.bian_embedding.items():
+            if value-1 not in refactored_bian_embedding.keys():
+                refactored_bian_embedding[value-1] = [key]
+            else:
+                refactored_bian_embedding[value-1].append(key)
+        self.refactored_bian_embedding = refactored_bian_embedding
         return bqm
 
     def compute_bqm_embedded(self, token):
