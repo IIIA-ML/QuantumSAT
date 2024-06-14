@@ -43,7 +43,9 @@ import dwave.embedding
 
 # %%
 random.seed(901)
-num_vars = 50
+num_vars = 20
+# Write the peculiarity of the bian that will be writen in .pkl, ex: peculiarity='chain_strength2' -> p50_chain_strength2.pkl
+peculiarity = ""
 
 dir = "../exp/eBeyond/Bian_study/Problems"
 p_dir = Path(dir)
@@ -51,7 +53,8 @@ p_dir.mkdir(parents=True, exist_ok=True)
 
 p = utils.generate_3sat(num_vars, ratio=4.2)
 #p = "c generated problem\np cnf 3 4\n1 2 3 0\n-1 2 3 0\n1 -2 3 0\n 1 -2 -3 0\n"
-file_name = "p"+str(num_vars)+".cnf"
+#p = "c generated problem\np cnf 3 1\n1 3 2 0\n3 1 2 0"
+file_name = "p"+str(num_vars)+("_"+peculiarity+".cnf" if peculiarity != "" else ".cnf")
 file_path = f"{dir}/{file_name}"
 with open(file_path,"w") as f:
     f.write(p)
@@ -60,7 +63,7 @@ with open(file_path,"w") as f:
 # ### Pickle data
 
 # %%
-token = "Your token"
+token = "DEV-291d80af600d6eb433a8019c579070ba37436e9a"
 #Other gadgets can be implemented if wanted
 gadgets = [
     "CJ1",
@@ -75,15 +78,13 @@ gadgets = [
 from Instance import Instance
 created_instance = Instance(file_path)
 
-# Write the peculiarity of the bian that will be writen in .pkl, ex: peculiarity='chain_strength2' -> p50_chain_strength2.pkl
-peculiarity = ""
-
 # %%
 secure_question = input("Do you really want to use D-Wave? (y/n)")
 for gadget in gadgets:
     getattr(created_instance, gadget).compute_scaled_bqm_embedded(token)
     if secure_question in ["Yes", "Y", "y", "yes"]:
         getattr(created_instance, gadget).solve_dwave_from_scaled_bqm_embedded(token, num_reads=100, annealing_time=100)
+    print(f"{gadget} computed!")
 
 # %% [markdown]
 # ### Save pickle
@@ -103,7 +104,7 @@ with open(p_dir / file_name, 'wb') as f:
 # # Study
 
 # %%
-token = "Your token"
+token = "DEV-291d80af600d6eb433a8019c579070ba37436e9a"
 # Other gadgets can be added if they have been implemented in pkl
 gadgets = [
     "CJ1",
@@ -113,7 +114,7 @@ gadgets = [
 ]
 
 # %%
-file_name = "../exp/eBeyond/Bian_study/Pickles/p50.pkl"
+file_name = "../exp/eBeyond/Bian_study/Pickles/p20.pkl"
 with open(file_name, 'rb') as f:
     instance = pickle.load(f)
 
@@ -124,12 +125,12 @@ with open(file_name, 'rb') as f:
 # ### ISING
 
 # %%
-gadget = "CJ1"
+gadget = "CJ2"
 
-file_name = "../exp/eBeyond/Bian_study/Pickles/p3_Manual.pkl"
+file_name = "../exp/eBeyond/Bian_study/Pickles/p3_1_clause.pkl"
 with open(file_name, 'rb') as f:
     problem = pickle.load(f)
-print("Num_vars: "+str(problem.N)+" ; Clauses: "+str(len(problem.clauses)))
+print(gadget + ": Num_vars: "+str(problem.N)+" ; Clauses: "+str(len(problem.clauses)))
 num_vars = len(getattr(problem,gadget).bqm.linear)
 matrix = np.zeros((num_vars, num_vars))
 for i, value in getattr(problem,gadget).bqm.linear.items():
@@ -195,6 +196,9 @@ for gadget in gadgets:
     chain_len[("FINAL", "Mean")].append(round(np.mean(list(len(chain) for chain in real_embedding[gadget].values())),2))
 pd.DataFrame(chain_len, index=gadgets)
 
+# %% [markdown]
+# ### Histogram for chain_len on D-Wave embedding
+
 # %%
 fig, ax = plt.subplots(figsize=(20, 8))
 num_gadgets = len(gadgets)
@@ -211,6 +215,8 @@ for i, gadget in enumerate(gadgets):
         else:
             chain_length[chain_l] = 1
     # Calculate the positions of the bars with an offset
+    sm = sum(chain_length.values())
+    chain_length = {key: leng/sm for key, leng in chain_length.items()}
     positions = np.array(list(chain_length.keys())) + i * bar_width - (num_gadgets - 1) * bar_width / 2
     
     # Plot the bars with the calculated positions
@@ -340,6 +346,14 @@ ax.set_ylabel('#')
 ax.legend(fontsize=12)
 plt.show()
 
+# %%
+for gadget in gadgets:
+    total_chain_embedding = 0
+    for ch in getattr(instance,gadget).bqm_embedded['embedding'].values():
+        if len(ch)>1:
+            total_chain_embedding += 1
+    print(f"% of chains broken for {gadget}: {round(np.sum(list(chain_break[gadget].values()))*100/total_chain_embedding,2)} %")
+
 # %% [markdown]
 # ### Which variable is broken (i.e. has its chain of dwave embedding broken), (occurrences, chain_length_DWave_embed.)
 
@@ -358,21 +372,68 @@ display(pd.DataFrame(variable_break_df))
 # %%
 literal_break = {}
 for gadget in gadgets:
-    lit_break = [0,0,0]
+    lit_break = [0,0,0, 0]
     if gadget=="CJ1_bian" or gadget=="CJ2_bian":
         for variable, ocur in variable_break[gadget].items():
-            if variable%3==0:
-                lit_break[2] += ocur
-            elif variable%2==0:
-                lit_break[1] += ocur
+            if variable<3*len(getattr(instance,gadget).clauses):
+                lit_break[variable%3]+=ocur
             else:
-                lit_break[0] += ocur            
-        literal_break[gadget] = lit_break
+                lit_break[3] += ocur
+               # if variable%3==0:
+               #     lit_break[2] += ocur
+               # elif variable%2==0:
+               #     lit_break[1] += ocur
+               # else:
+               #     lit_break[0] += ocur            
+            literal_break[gadget] = lit_break
 print("Literal that has its chain broken ; (l_1 OR l_2 OR l_3)")
 pd.DataFrame(literal_break).transpose()
 
 # %% [markdown]
-# ### Study on Bian embedding
+# ### Mean length of broken chains for each literal
+
+# %%
+literal_chain_len = {}
+for gadget in ["CJ1_bian", "CJ2_bian"]:
+    literal_chain_len[gadget] = [0,0,0,0]
+    lit_chain_len = [[],[],[],[]]
+    for variable in variable_break[gadget].keys():
+        if variable<3*len(getattr(instance,gadget).clauses):
+            lit_chain_len[variable%3].append(len(getattr(instance,gadget).bqm_embedded['embedding'][variable]))
+        else:
+            lit_chain_len[3].append(len(getattr(instance,gadget).bqm_embedded['embedding'][variable]))
+    for i in range(4):
+        literal_chain_len[gadget][i] = round(np.mean(lit_chain_len[i]),2)
+pd.DataFrame(literal_chain_len).transpose()
+
+# %% [markdown]
+# ### Real chains broken
+
+# %%
+chain_break_real = {}
+variable_break_real = {}
+for gadget in gadgets:
+    #Data for a histogram of chain_break (x-axis is chain_len) and Data for occurence of chain break for a QUBO variable
+    chain_break_real[gadget], variable_break_real[gadget] = chain_break_count(getattr(instance,gadget).response_dwave_from_scaled_bqm_embedded, real_embedding[gadget])
+
+# %%
+for gadget in gadgets:
+    total_chain_embedding = 0
+    for ch in real_embedding[gadget].values():
+        if len(ch)>1:
+            total_chain_embedding += 1
+    print(f"% of real chains broken for {gadget}: {round(np.sum(list(chain_break_real[gadget].values()))*100/total_chain_embedding,2)} %")
+
+# %% [markdown]
+# ### Real chains that break in more than half of the runs
+
+# %%
+for gadget in gadgets:
+    print(f"{gadget} - Max_chain_len: {max(list(len(ch) for ch in real_embedding[gadget].values()))}")
+    for var, oc in variable_break_real[gadget].items():
+        if oc>50:
+            print(f"Variable {var} : ocurrence_break = {oc} ; real_chain_len = {len(real_embedding[gadget][var])} ; literal = {3 if (var+1)%3==0 else (var+1)%3}")
+#print(
 
 # %%
 chain_break_bian = {}
