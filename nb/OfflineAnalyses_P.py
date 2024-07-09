@@ -23,11 +23,11 @@ import random
 
 
 # %%
-num_vars = 5
+num_vars = 50
 
 # %%
-with open(f'../exp/eBeyond/p{num_vars}.cnf.pkl', 'rb') as f:
-#with open(f'../exp/eBeyond/Pickles/p50/p{num_vars}-0.pkl', 'rb') as f:
+#with open(f'../exp/eBeyond/p{num_vars}.cnf.pkl', 'rb') as f:
+with open(f'../exp/eBeyond/Pickles/p50/p{num_vars}-0.pkl', 'rb') as f:
     instance = pickle.load(f)
 
 # %%
@@ -38,10 +38,10 @@ Image(filename='../figs/From_scaled_BQM_embedded_to_solutions.png')
 
 # %%
 gadgets = [
-    "Nuesslein1",
-    "Nuesslein2",
-    "CJ1",
-    "CJ2",
+    #"Nuesslein1",
+    #"Nuesslein2",
+    #"CJ1",
+    #"CJ2",
     "CJ1_bian",
     "CJ2_bian"
 ]
@@ -128,8 +128,8 @@ display(max_len_df)
 # Set the x-axis limits
 # Set the x-axis ticks to be integers only
 #ax.set_xticks(np.arange(0, max_len_all + 1))
-#ax.set_xlim(7.5, 16.5)
-#ax.set_ylim(0,20)
+ax.set_xlim(7.5, 16.5)
+ax.set_ylim(0,20)
 ax.set_title('Chain_length distribution')
 ax.set_xlabel('Chain_length')
 ax.set_ylabel('#')
@@ -202,10 +202,10 @@ def groupby_subopt(sample_set, embedding, SAT_num_vars, gadget):
 
 # %%
 gadgets = [
-    "Nuesslein1",
-    "Nuesslein2",
-    "CJ1",
-    "CJ2",
+    #"Nuesslein1",
+    #"Nuesslein2",
+    #"CJ1",
+    #"CJ2",
     "CJ1_bian",
     "CJ2_bian"
 ]
@@ -253,14 +253,14 @@ def majority_voting(embedding, sample):
 # %%
 gadgets = [
     #"Nuesslein1",
-    "Nuesslein2",
-    "CJ1",
-    "CJ2",
+    #"Nuesslein2",
+    #"CJ1",
+    #"CJ2",
     "CJ1_bian",
     "CJ2_bian"
 ]
 n_vars=[50]
-iterations=20
+iterations=1
 
 o={}
 for vars in n_vars:
@@ -270,14 +270,17 @@ for vars in n_vars:
         o_list={}
         for i in range(iterations):
             #Maxsatz exact solution
-            response = !./../src/maxsatz {f'../exp/e3/problems/p{vars}-{i}.cnf'}
+            #file_cnf = f'../exp/e3/problems/p{vars}-{i}.cnf'
+            file_cnf = f'../exp/eBeyond/p{vars}.cnf'
+            response = !./../src/maxsatz {file_cnf}
             for l in reversed(response):
                 if l.split()[0] == 'o':
                     optimum = int(l.split()[1])
                     break
             
             #Dwave pickle optimum distribution
-            file_path = f'../exp/eBeyond/Pickles/p{vars}/p{vars}-{i}.pkl'
+            #file_path = f'../exp/eBeyond/Pickles/p{vars}/p{vars}-{i}.pkl'
+            file_path = f'../exp/eBeyond/p{vars}.cnf.pkl'
             with open(file_path, 'rb') as f:
                 instance = pickle.load(f)
             sample_set = getattr(instance, gadget).response_dwave_from_scaled_bqm_embedded
@@ -327,7 +330,11 @@ sorted_data = {outer_key: {inner_key: sort_nested_dicts(inner_value)
                for outer_key, outer_value in o.items()}
 for k,v in sorted_data.items():
     for kk, vv in v.items():
+        summ = 0
         print(kk, ':', vv)
+        for kkk, vvv in vv.items():
+            summ = summ + kkk*vvv
+        print('Mean optimum found: ', summ/100)
 
 # %%
 fig, axs = plt.subplots(3, 2, figsize=(8, 12))
@@ -360,6 +367,16 @@ for o_vars in o.values():
 
 plt.tight_layout()
 plt.show()
+
+# %%
+
+# %% [markdown]
+# ## Re-minor_embed bian
+
+# %%
+instance.CJ1_bian.scaled_bqm_embedded['scaled_bqm_embedded']
+
+# %%
 
 # %% [markdown]
 # ## GUROBI results

@@ -45,7 +45,7 @@ import dwave.embedding
 random.seed(901)
 num_vars = 20
 # Write the peculiarity of the bian that will be writen in .pkl, ex: peculiarity='chain_strength2' -> p50_chain_strength2.pkl
-peculiarity = ""
+peculiarity = "bian_chain_circle"
 
 dir = "../exp/eBeyond/Bian_study/Problems"
 p_dir = Path(dir)
@@ -66,8 +66,8 @@ with open(file_path,"w") as f:
 token = "DEV-291d80af600d6eb433a8019c579070ba37436e9a"
 #Other gadgets can be implemented if wanted
 gadgets = [
-    "CJ1",
-    "CJ2",
+    #"CJ1",
+    #"CJ2",
     "CJ1_bian",
     "CJ2_bian"
 ]
@@ -75,7 +75,7 @@ gadgets = [
 # %%
 # Generate a new Instance_edited.py with the changes needed and import it in the Notebook
 # (.py example: chain_strength fixed to 2 ; CJ1_bian with weights in repeated literals of -1)
-from Instance import Instance
+from Instance_bian_chain_circle import Instance
 created_instance = Instance(file_path)
 
 # %%
@@ -107,14 +107,14 @@ with open(p_dir / file_name, 'wb') as f:
 token = "DEV-291d80af600d6eb433a8019c579070ba37436e9a"
 # Other gadgets can be added if they have been implemented in pkl
 gadgets = [
-    "CJ1",
-    "CJ2",
+    #"CJ1",
+    #"CJ2",
     "CJ1_bian",
     "CJ2_bian"
 ]
 
 # %%
-file_name = "../exp/eBeyond/Bian_study/Pickles/p20.pkl"
+file_name = "../exp/eBeyond/Bian_study/Pickles/p20_bian_chain_circle.pkl"
 with open(file_name, 'rb') as f:
     instance = pickle.load(f)
 
@@ -125,9 +125,9 @@ with open(file_name, 'rb') as f:
 # ### ISING
 
 # %%
-gadget = "CJ2"
+gadget = "CJ1"
 
-file_name = "../exp/eBeyond/Bian_study/Pickles/p3_1_clause.pkl"
+file_name = "../exp/eBeyond/Bian_study/Pickles/p3_2_clause.pkl"
 with open(file_name, 'rb') as f:
     problem = pickle.load(f)
 print(gadget + ": Num_vars: "+str(problem.N)+" ; Clauses: "+str(len(problem.clauses)))
@@ -447,5 +447,90 @@ for gadget in ["CJ1_bian", "CJ2_bian"]:
 import dwave.inspector
 response = dimod.SampleSet.from_serializable(instance.CJ2.response_dwave_from_scaled_bqm_embedded)
 dwave.inspector.show(response)
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+print(instance.CJ2_bian.N)
+var_density = {}
+for var in instance.CJ2_bian.bqm.variables:
+    var_density[var]=0
+    for couple, value in instance.CJ2_bian.bqm.quadratic.items():
+        if var in couple and value!=0:
+            var_density[var] += 1
+var_density={k: v for k, v in sorted(var_density.items(), key=lambda item: item[1])}
+var_density
+
+# %%
+var_density = {}
+for var in instance.CJ2_bian.bqm.variables:
+    var_density[var]=0
+    for couple, value in instance.CJ2_bian.bqm.quadratic.items():
+        if var in couple and value!=0:
+            var_density[var] += 1
+var_density={k: v for k, v in sorted(var_density.items(), key=lambda item: item[1])}
+couple_listed=[]
+couplings=[]
+for var in reversed(var_density.keys()):
+    for couple, value in instance.CJ2_bian.bqm.quadratic.items():
+        if var in couple and couple not in couple_listed:
+            couple_listed.append(couple)
+            couplings.append(couple)
+embedding1 =find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=42, verbose=1, max_fill=2)
+
+# %%
+Q = instance.CJ2_bian.Q
+couplings=[]
+for k in Q.keys():
+    if k[0] != k[1]:
+        couplings.append(k)
+embedding2 =find_embedding(couplings, DWaveSampler(token=token).edgelist, random_seed=42, verbose=1)
+
+# %%
+fig, ax = plt.subplots(figsize=(20, 8))
+num_gadgets = len(gadgets)
+bar_width = 1 / (num_gadgets + 1)  # Width of each bar
+
+# Loop through each gadget and plot the bars with an offset
+for i,emb in enumerate([embedding1, embedding2]):
+    chain_length = {}
+    for chain in emb.values():
+        chain_l = len(chain)
+        if chain_l in chain_length:
+            chain_length[chain_l] += 1
+        else:
+            chain_length[chain_l] = 1
+    # Calculate the positions of the bars with an offset
+    positions = np.array(list(chain_length.keys())) + i * bar_width - (num_gadgets - 1) * bar_width / 2
+    
+    # Plot the bars with the calculated positions
+    ax.bar(positions, list(chain_length.values()), width=bar_width, label='Embedding'+str(i))
+
+# Set the x-axis limits
+# Set the x-axis ticks to be integers only
+#ax.set_xticks(np.arange(0, max_len_all + 1))
+#ax.set_xlim(7.5, 16.5)
+#ax.set_ylim(0,20)
+ax.set_title('Chain_length distribution')
+ax.set_xlabel('Chain_length')
+ax.set_ylabel('#')
+
+# Add a legend
+ax.legend(fontsize=12)
+plt.show()
+
+# %%
+
+# %%
+max([len(values) for values in embedding.values()])
+
+# %%
+max([len(value) for value in instance.CJ2_bian.refactored_bian_embedding.values()])
 
 # %%
