@@ -1,0 +1,26 @@
+import numpy as np
+
+class Splitter:
+    def Parse_cnf_file(self, file_name):
+        clauses=[]
+        with open(file_name, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                if not line.startswith('c') and not line.startswith('p') and line:
+                    clauses.append(np.array(list(map(int, line.split()[:-1]))))
+                if line.startswith('p'):
+                    V = int(line.split()[2])
+                    
+        return clauses, V
+    
+    def Split(self, clauses):
+        pass
+    
+    
+class Single_clause(Splitter):
+    def Split(self, clauses):
+        return [clauses]
+        
+    #Separar en subgrups segons el nombre de literals en clausules (per exemple)
+    #def k_SAT(self):
+    #Si es genera un subgrup d'una sola clausula, aquest subgrup s'ha de definir com [[2,3]], per aixi quan es crida clauses es pot fer for c in clauses
