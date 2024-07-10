@@ -17,9 +17,13 @@ class Splitter:
         pass
     
     
-class Single_clause(Splitter):
+class Single_problem(Splitter):
     def Split(self, clauses):
         return [clauses]
+
+class Two_subproblems(Splitter):
+    def Split(self, clauses):
+        return [clauses[:int(len(clauses)/2)], clauses[int(len(clauses)/2):]]
         
     #Separar en subgrups segons el nombre de literals en clausules (per exemple)
     #def k_SAT(self):
