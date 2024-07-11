@@ -1,6 +1,8 @@
 import random
 import numpy as np
 from pathlib import Path
+import dimod
+import pandas as pd
 
 
 def generate_3sat(num_vars, ratio=None, num_clauses=None):
@@ -104,3 +106,24 @@ def generate_3_sat_problems():
             p = generate_3sat(vars, ratio=4.2)
             with open(p_dir / ("p"+str(vars)+"-"+str(i)+".cnf"), "w") as f:
                 f.write(p)
+
+def count_unsatisfied_clauses(assignment, clauses):
+    count = 0
+    for c in clauses:
+        for l in c:
+            if (l > 0 and assignment[np.abs(l)] == 1) or (l < 0 and assignment[np.abs(l)] == -1):
+                count += 1
+                break
+                
+    return len(clauses)-count
+
+def unchain_dwave_solutions(sample_set, embedding):
+    majority_voting_dict = {}
+    for key, value in embedding.items():
+        chain_length = len(value)
+        chain_df = dimod.keep_variables(sample_set, value).to_pandas_dataframe().iloc[:,0:chain_length]
+        majority_voting_dict[key] = chain_df.mode(axis=1)[0]            
+    solutions_bqm_embedded_df = pd.DataFrame(majority_voting_dict)
+    solutions_bqm_embedded_df['Real Energy'] = sample_set.to_pandas_dataframe()['energy']
+    solutions_bqm_embedded_df['Occurrences'] = sample_set.to_pandas_dataframe()['num_occurrences']
+    return solutions_bqm_embedded_df

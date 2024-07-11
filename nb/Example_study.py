@@ -40,20 +40,26 @@ with open(file_path,"w") as f:
     f.write(p)
 
 # %%
-splitter = Splitter.Two_subproblems()
-gadget = [Gadget.CJ1(), Gadget.CJ2()]
-joiner = [Joiner.SAT_variables(), Joiner.Bian()]
-#solver = Solver.D_Wave()
-#token = 'DEV-291d80af600d6eb433a8019c579070ba37436e9a'
+splitter = Splitter.Single_problem()
+gadget = [Gadget.CJ1()]
+joiner = [Joiner.SAT_variables()]
+solver = Solver.D_Wave()
+token = 'DEV-291d80af600d6eb433a8019c579070ba37436e9a'
 
 # %%
-solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner)
+solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner, solver=solver, token=token, qubit_level=True)
 
 # %%
 solution.Solve()
 
 # %%
+solution.o
+
+# %%
 solution.response
+
+# %%
+solution.embedding
 
 # %%
 solution.subproblems
@@ -79,5 +85,14 @@ table = ax.table(cellText=matrix, cellLoc='center', loc='center', colLabels=labe
 table.scale(1, 1.5)
 plt.title('BQM (Ising)')
 plt.show()
+
+# %%
+dimod.BinaryQuadraticModel.from_qubo(solution.Q, offset=0).change_vartype("SPIN", True)
+
+# %%
+solution.Q_encoding.literal_to_variable
+
+# %%
+solution.Q_encoding.variable_to_literal
 
 # %%

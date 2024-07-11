@@ -73,7 +73,16 @@ class SAT_solver:
                     self.Q_encoding = Variable_encoding(encoding = Q_encoding)
                     if self.solver is not None:
                         self.response, self.embedding = self.solver.Solve(self.Q, self.token, self.qubit_level)
-                        embedding = self.response.info['embedding_context']['embedding']
-
+                        if self.qubit_level==False:
+                            self.real_encoding = self.Q_encoding
+                        else:
+                            real_encoding = {}
+                            for lit, var in Q_encoding.items():
+                                for l, qubits in self.embedding.items():
+                                    if lit==l:
+                                        for q in qubits:
+                                            real_encoding[q] = var
+                            self.real_encoding = Variable_encoding(encoding = real_encoding)
+                            self.o = self.solver.SAT_solution(self.real_encoding.variable_to_literal, self.clauses)
 
 

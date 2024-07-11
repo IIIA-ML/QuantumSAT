@@ -3,6 +3,7 @@ from dwave.embedding import embed_bqm
 from minorminer import find_embedding
 from dwave.system import DWaveSampler, FixedEmbeddingComposite, EmbeddingComposite
 from dwave.samplers import SimulatedAnnealingSampler
+import utils
 
 
 class Solver:
@@ -45,6 +46,7 @@ class D_Wave(Solver):
             if k[1] not in embedding_bqm.keys():
                 embedding_bqm[k[1]] = [k[1]]
         return embedding_bqm
+
     
     def compute_bqm_embedded(self, Q, token):
         self.bqm = dimod.BinaryQuadraticModel.from_qubo(Q, offset=0).change_vartype("SPIN", True)
@@ -62,14 +64,13 @@ class D_Wave(Solver):
             temp_bqm_embedded.scale(1 / scale_factor)
         self.scaled_bqm_embedded = temp_bqm_embedded
         self.scale_factor = scale_factor
-
-    #def decode_solution(self):
         
         
     def Solve(self, Q, token, qubit_level):
+        self.qubit_level = qubit_level
         if token==None:
             raise Exception("No token entered for solving with D-Wave QPU")
-        if qubit_level==True:
+        if self.qubit_level==True:
             self.compute_bqm_embedded(Q, token)
             self.compute_scaled_bqm_embedded(token)
             embedding_refactored = self.refactor_embedding_1_to_1(self.scaled_bqm_embedded)
@@ -86,6 +87,20 @@ class D_Wave(Solver):
         
         return self.response, self.embedding
 
+    def SAT_solution(self, real_encoding, clauses):
+        solutions_bqm_embedded_df_aux = utils.unchain_dwave_solutions(self.response, real_encoding)
+        solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
+        self.o = {}
+        for _, row in solutions_bqm_embedded_df.iterrows():
+            assigment = dict(row)
+            o = utils.count_unsatisfied_clauses(assigment, clauses)
+            if o not in self.o.keys():
+                self.o[o] = 1
+            else:
+                self.o[o] += 1
+        return self.o
+        
+
     
 
 class Simulated_annealing(Solver):
@@ -93,7 +108,7 @@ class Simulated_annealing(Solver):
         sampler = SimulatedAnnealingSampler()
         self.response = sampler.sample_qubo(Q, num_reads=100)
 
-        return self.response
+        return self.response, {}
 
 
 
