@@ -1,0 +1,8 @@
+python-sat[aiger,approxmc,pblib]
+dwave-ocean-sdk
+pyqubo
+jupyterlab
+jupytext
+jupyter
+matplotlib
+pandas
