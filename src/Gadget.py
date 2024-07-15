@@ -65,3 +65,19 @@ class CJ2(Gadget):
             self.b += 1
 
         return [self.Q, self.encoding]
+
+class Choi(Gadget):
+    def FillQ(self, clauses):
+        L = []
+        for c in clauses:
+            L.extend(c)
+        for i in range(len(L)):
+            for j in range(len(L)):
+                if i > j:
+                    continue
+                if i == j:
+                    self.add(i, j, abs(L[i]), abs(L[j]), -1)
+                elif j - i <= 2 and j//3 == i//3:
+                    self.add(i, j, abs(L[i]), abs(L[j]), 3)
+                elif abs(L[i]) == abs(L[j]) and L[i] != L[j]:
+                    self.add(i, j, abs(L[i]), abs(L[j]), 3)
