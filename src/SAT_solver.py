@@ -83,6 +83,6 @@ class SAT_solver:
                                         for q in qubits:
                                             real_encoding[q] = var
                             self.real_encoding = Variable_encoding(encoding = real_encoding)
-                            self.o = self.solver.SAT_solution(self.real_encoding.variable_to_literal, self.clauses)
+                        self.o = self.solver.SAT_solution(self.real_encoding.variable_to_literal, self.clauses)
 
 
