@@ -41,19 +41,25 @@ with open(file_path,"w") as f:
 
 # %%
 splitter = Splitter.Single_problem()
-gadget = [Gadget.CJ1()]
+gadget = [Gadget.CJ2()]
 joiner = [Joiner.SAT_variables()]
-solver = Solver.D_Wave()
+solver = Solver.Simulated_annealing()
 token = 'DEV-291d80af600d6eb433a8019c579070ba37436e9a'
 
 # %%
-solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner, solver=solver, token=token, qubit_level=True)
+solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner, solver=solver, token=token, qubit_level=False)
 
 # %%
 solution.Solve()
 
 # %%
 solution.o
+
+# %%
+solution.print_ISING()
+
+# %%
+solution.real_encoding.literal_to_variable
 
 # %%
 solution.response

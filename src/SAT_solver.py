@@ -3,7 +3,7 @@ import Splitter
 import Gadget
 import Joiner
 import Solver
-
+import dimod
 
 
 class Variable_encoding:
@@ -30,16 +30,16 @@ class Variable_encoding:
 
 
 class SAT_solver:
-    def __init__(self, file_path=None, clauses=None, N=None, splitter=None, gadget=None, joiner=None, solver=None, token=None, qubit_level=False):
-        self.file_path = file_path    
+    def __init__(self, instance=None, file_path=None, splitter=None, gadget=None, joiner=None, solver=None, token=None, qubit_level=False):
+        if instance is not None:
+            self.clauses = instance
+            self.N = max([abs(v) for c in self.clauses for v in c])
         if file_path is not None:
+            self.file_path = file_path  
             self.clauses, self.N = splitter.Parse_cnf_file(file_path)
             random.seed(901)
             for clause in self.clauses:
                 random.shuffle(clause)
-        else:
-            self.clauses = clauses,
-            self.N = N
         self.splitter = splitter
         self.gadget = gadget
         self.joiner = joiner
@@ -86,3 +86,63 @@ class SAT_solver:
                         self.o = self.solver.SAT_solution(self.real_encoding.variable_to_literal, self.clauses)
 
 
+    def print_QUBO(self, Q=None, encoding=None):
+        if Q is None or encoding is None:
+            print("Printing the final QUBO:\n")
+            Q = self.Q
+            encoding = self.Q_encoding.literal_to_variable
+        
+        qubo_vars = sorted(list(set(sum(Q.keys(), ()))))
+        # Print the header row
+        auxiliar = max([q_var for q_var, var in encoding.items() if var!=None])
+        variable_labels = {abs(q_var): (f"x{abs(var)}" if var is not None else f"b{q_var-auxiliar}") for q_var, var in encoding.items()}
+        
+        header_row = ["QUBO"] + [variable_labels[k] for k in qubo_vars]
+        print("{:<8}".format(header_row[0]), " ".join("{:>7}".format(var) for var in header_row[1:]))
+
+        # Print the QUBO matrix rows
+        for i in qubo_vars:
+            i_idx = qubo_vars.index(i)
+            
+            print("{:<8}".format(f"Var {i}"), end=" ")
+
+            for j in qubo_vars:
+                if  qubo_vars.index(j) >= i_idx:
+                    print("{:>7}".format(Q.get((i, j), 0)), end=" ")
+                else:
+                    print("{:>7}".format(0), end=" ")
+            print("")
+
+    def print_ISING(self, Q=None, encoding=None):
+        if Q is None or encoding is None:
+            print("Printing the final Ising matrix:\n")
+            Q = self.Q
+            encoding = self.Q_encoding.literal_to_variable
+        h, J = dimod.qubo_to_ising(Q)[:2]
+        matrix = {}
+        for key, val in h.items():
+            matrix[(key, key)] = val
+        for key, val in J.items():
+            matrix[key] = val
+        Q = matrix
+        
+        qubo_vars = sorted(list(set(sum(Q.keys(), ()))))
+        # Print the header row
+        auxiliar = max([q_var for q_var, var in encoding.items() if var!=None])
+        variable_labels = {abs(q_var): (f"x{abs(var)}" if var is not None else f"b{q_var-auxiliar}") for q_var, var in encoding.items()}
+        
+        header_row = ["ISING"] + [variable_labels[k] for k in qubo_vars]
+        print("{:<8}".format(header_row[0]), " ".join("{:>7}".format(var) for var in header_row[1:]))
+
+        # Print the QUBO matrix rows
+        for i in qubo_vars:
+            i_idx = qubo_vars.index(i)
+            
+            print("{:<8}".format(variable_labels[i]), end=" ")
+
+            for j in qubo_vars:
+                if  qubo_vars.index(j) >= i_idx:
+                    print("{:>7}".format(Q.get((i, j), 0)), end=" ")
+                else:
+                    print("{:>7}".format(0), end=" ")
+            print("")
