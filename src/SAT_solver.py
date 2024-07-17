@@ -4,6 +4,7 @@ import Gadget
 import Joiner
 import Solver
 import dimod
+import subprocess
 
 
 class Variable_encoding:
@@ -34,6 +35,14 @@ class SAT_solver:
         if instance is not None:
             self.clauses = instance
             self.N = max([abs(v) for c in self.clauses for v in c])
+            p = f"c generated problem\np cnf {self.N} {len(self.clauses)}\n"
+            for c in self.clauses:
+                for lit in c:
+                    p += str(lit) + " "
+                p += "0\n"
+            self.file_path = f"../exp/eBeyond/Problems_SAT_solver/p{self.N}.cnf"
+            with open(self.file_path,"w") as f:
+                f.write(p)
         if file_path is not None:
             self.file_path = file_path  
             self.clauses, self.N = splitter.Parse_cnf_file(file_path)
@@ -84,6 +93,14 @@ class SAT_solver:
                                             real_encoding[q] = var
                             self.real_encoding = Variable_encoding(encoding = real_encoding)
                         self.o = self.solver.SAT_solution(self.real_encoding.variable_to_literal, self.clauses)
+                        
+                        #Find optimum solution with exact classic solver
+                        command = ["./../src/maxsatz", self.file_path]
+                        exact_response = subprocess.run(command, capture_output=True)
+                        for l in reversed(exact_response.stdout.decode('utf-8').splitlines()):
+                            if l.split()[0] == 'o':
+                                self.exact_o = int(l.split()[1])
+                                break
 
 
     def print_QUBO(self, Q=None, encoding=None):

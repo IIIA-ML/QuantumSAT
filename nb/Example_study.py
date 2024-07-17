@@ -26,7 +26,7 @@ import utils
 random.seed(901)
 num_vars = 20
 
-dir = "../exp/eBeyond/Bian_study/Problems"
+dir = "../exp/eBeyond/Problems_SAT_solver"
 p_dir = Path(dir)
 p_dir.mkdir(parents=True, exist_ok=True)
 
@@ -53,7 +53,10 @@ solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=
 solution.Solve()
 
 # %%
-solution.o
+
+# %%
+print("Solution found: ", solution.o)
+print("Exact solution: ", solution.exact_o)
 
 # %%
 solution.print_ISING()
