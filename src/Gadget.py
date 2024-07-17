@@ -29,6 +29,8 @@ class CJ1(Gadget):
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
+            #Sort the literals with absoltue value
+            c = sorted(c, key=abs)
             s = [1 if l>0 else -1 for l in c] #sign of the literal (negated or not)
             var = [abs(l) for l in c]
             self.add(literal, literal, var[0], var[0], 3*s[0]-s[0]*s[1])
@@ -50,6 +52,8 @@ class CJ2(Gadget):
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
+            #Sort the literals with absoltue value
+            c = sorted(c, key=abs)
             s = [1 if l>0 else -1 for l in c] #sign of the literal (negated or not)
             var = [abs(l) for l in c]
             self.add(literal, literal, var[0], var[0], s[0] - s[0] * s[2])
@@ -81,3 +85,4 @@ class Choi(Gadget):
                     self.add(i, j, abs(L[i]), abs(L[j]), 3)
                 elif abs(L[i]) == abs(L[j]) and L[i] != L[j]:
                     self.add(i, j, abs(L[i]), abs(L[j]), 3)
+        return [self.Q, self.encoding]
