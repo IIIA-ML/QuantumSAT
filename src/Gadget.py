@@ -26,6 +26,8 @@ class Gadget:
     
 class CJ1(Gadget):
     def FillQ(self, clauses):
+        self.Q = {}
+        self.encoding = {}
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
@@ -49,6 +51,8 @@ class CJ1(Gadget):
 
 class CJ2(Gadget):
     def FillQ(self, clauses):
+        self.Q = {}
+        self.encoding = {}
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
@@ -72,6 +76,8 @@ class CJ2(Gadget):
 
 class Choi(Gadget):
     def FillQ(self, clauses):
+        self.Q = {}
+        self.encoding = {}
         L = []
         for c in clauses:
             L.extend(c)

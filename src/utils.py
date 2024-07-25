@@ -42,22 +42,6 @@ def generate_3sat(num_vars, ratio=None, num_clauses=None):
             assert lit1 != -lit3
             assert lit2 != lit3
             assert lit2 != -lit3
-            #sort literals
-            if abs(lit2) < abs(lit1):
-                tmp = lit1
-                lit1 = lit2
-                lit2 = tmp
-            if abs(lit3) < abs(lit1):
-                tmp = lit1
-                lit1 = lit3
-                lit3 = tmp
-            if abs(lit3) < abs(lit2):
-                tmp = lit2
-                lit2 = lit3
-                lit3 = tmp
-            assert abs(lit1) < abs(lit2)
-            assert abs(lit1) < abs(lit3)
-            assert abs(lit2) < abs(lit3)
             clause = str(lit1) + " " + str(lit2) + " " + str(lit3)
             if not clause in clauses:
                 clauses[clause] = True

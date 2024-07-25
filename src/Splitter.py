@@ -24,6 +24,21 @@ class Single_problem(Splitter):
 class Two_subproblems(Splitter):
     def Split(self, clauses):
         return [clauses[:int(len(clauses)/2)], clauses[int(len(clauses)/2):]]
+
+class Multiple_five(Splitter):
+    def Split(self, clauses):
+        clause_list=[]
+        new_clauses=[]
+        for i, c in enumerate(clauses):
+            if i==len(clauses)-1 and i%21!=0:
+                new_clauses.append(clause_list)
+                break
+            if i!=0 and i%21==0:
+                new_clauses.append(clause_list)
+                clause_list=[c]
+            else:
+                clause_list.append(c)
+        return new_clauses
         
     #Separar en subgrups segons el nombre de literals en clausules (per exemple)
     #def k_SAT(self):
