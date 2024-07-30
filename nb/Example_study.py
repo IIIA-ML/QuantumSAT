@@ -15,6 +15,7 @@
 # %%
 import SAT_solver
 import Splitter
+import Sorter
 import Gadget
 import Joiner
 import Solver
@@ -28,15 +29,15 @@ import pickle
 
 # %%
 random.seed(901)
-num_vars = 100
+num_vars = 5
 
 dir = "../exp/eBeyond/Problems_SAT_solver"
 p_dir = Path(dir)
 p_dir.mkdir(parents=True, exist_ok=True)
 
 p = utils.generate_3sat(num_vars, ratio=4.2)
-#p = "c generated problem\np cnf 3 4\n1 3 2 0\n3 -1 2 0\n1 3 -2 0\n1 -3 -2 0\n"
-#p = "c generated problem\np cnf 3 2\n1 3 -2 0\n-3 1 -2 0"
+#p = "c generated problem\np cnf 3 4\n1 3 2 0\n3 -1 2 0\n1 3 -2 0\n2 -3 -1 0\n"
+#p = "c generated problem\np cnf 3 2\n1 3 -2 0\n-3 1 -4 0"
 #p = "c generated problem\np cnf 3 1\n1 3 2 0"
 file_name = "p"+str(num_vars)+".cnf"
 file_path = f"{dir}/{file_name}"
@@ -48,14 +49,15 @@ with open(file_path,"w") as f:
 
 # %%
 splitter = Splitter.Single_problem()
+sorter = [Sorter.CJ2()]
 gadget = [Gadget.CJ2()]
 joiner = [Joiner.SAT_variables()]
 solver = Solver.D_Wave()
 token = 'Your token'
 
 # %%
-solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner, solver=solver, token=token, qubit_level=True)
-#solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, gadget=gadget, joiner=joiner)
+solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, sorter=sorter, gadget=gadget, joiner=joiner, solver=solver, token=token, qubit_level=True)
+#solution = SAT_solver.SAT_solver(file_path=file_path, splitter=splitter, sorter=sorter, gadget=gadget, joiner=joiner)
 
 # %%
 solution.Solve()
@@ -64,7 +66,8 @@ solution.Solve()
 # ## Save pickle
 
 # %%
-feature = "CJ2_SATvars_ql"
+feature = "CJ2_SATvars_ql_CJ2sort"
+
 dir = "../exp/eBeyond/Problems_SAT_solver/Pickles"
 p_dir = Path(dir)
 p_dir.mkdir(parents=True, exist_ok=True)
@@ -99,11 +102,6 @@ solution.print_ISING()
 
 # %% [markdown]
 # #### Optimum found
-
-# %%
-print("Solution found: ", dict(sorted(solution.o.items())))
-print("Mean: ", sum(key * value for key, value in solution.o.items())/sum(solution.o.values()))
-print("Exact solution: ", solution.exact_o)
 
 # %%
 print("Solution found: ", dict(sorted(solution.o.items())))
@@ -202,9 +200,9 @@ if solution.response.info['embedding_context']['chain_strength']:
 import dimod
 import numpy as np
 
-#Possible comparisons: n={5,20,50,70}
-n = 100
-problems = ['_ql', '_twosub']#, '']
+#Possible comparisons: n={5,20,50,70,100}
+n = 55
+problems = ['_ql', '_ql_CJ2sort']#, '']
 for problem in problems:
     print('-------------------------------------------------------------\n', problem[:-4])
     with open(f'../exp/eBeyond/Problems_SAT_solver/Pickles/p{n}_CJ2_SATvars{problem}.pkl', 'rb') as f:
@@ -221,8 +219,8 @@ for problem in problems:
             print('Chain_strength: ', solution.response.info['embedding_context']['chain_strength'], ' ????????')
 
             print('Scale factor: ', solution.solver.scale_factor)
-            print(len(set([q for qubits in solution.embedding.values() for q in qubits])))
-            print(len(set([variables for variables in solution.embedding.keys()])))
+            print('# of qubits: ', len(set([q for qubits in solution.embedding.values() for q in qubits])))
+            print('# of QUBO variables: ', len(set([variables for variables in solution.embedding.keys()])))
         
         J = dimod.qubo_to_ising(solution.Q)[1]
         non_zero_couplings = 0

@@ -2,6 +2,7 @@ class Gadget:
     def __init__(self):
         self.Q = {}
         self.encoding = {}
+        self.b = None
         
     def get_index_auxiliar(self, clauses):
         num_literals = 0
@@ -26,13 +27,9 @@ class Gadget:
     
 class CJ1(Gadget):
     def FillQ(self, clauses):
-        self.Q = {}
-        self.encoding = {}
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
-            #Sort the literals with absoltue value
-            c = sorted(c, key=abs)
             s = [1 if l>0 else -1 for l in c] #sign of the literal (negated or not)
             var = [abs(l) for l in c]
             self.add(literal, literal, var[0], var[0], 3*s[0]-s[0]*s[1])
@@ -51,13 +48,9 @@ class CJ1(Gadget):
 
 class CJ2(Gadget):
     def FillQ(self, clauses):
-        self.Q = {}
-        self.encoding = {}
         self.get_index_auxiliar(clauses) #auxiliar will be the num_literals+1
         literal = 0
         for c in clauses:
-            #Sort the literals with absoltue value
-            c = sorted(c, key=abs)
             s = [1 if l>0 else -1 for l in c] #sign of the literal (negated or not)
             var = [abs(l) for l in c]
             self.add(literal, literal, var[0], var[0], s[0] - s[0] * s[2])

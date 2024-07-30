@@ -39,7 +39,7 @@ class Multiple_five(Splitter):
             else:
                 clause_list.append(c)
         return new_clauses
-        
+
     #Separar en subgrups segons el nombre de literals en clausules (per exemple)
     #def k_SAT(self):
     #Si es genera un subgrup d'una sola clausula, aquest subgrup s'ha de definir com [[2,3]], per aixi quan es crida clauses es pot fer for c in clauses

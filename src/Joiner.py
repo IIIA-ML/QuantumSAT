@@ -1,7 +1,6 @@
 class Joiner:
     def __init__(self):
-        self.final_encoding = {}
-        self.final_Q = {}
+        self.mappers = None
 
     def get_variables(self):
         variables = []

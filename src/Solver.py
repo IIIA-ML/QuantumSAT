@@ -8,7 +8,14 @@ import utils
 
 class Solver:
     def __init__(self):
-        self.response = []
+        self.qubit_level = False
+        self.bqm = None
+        self.embedding = None
+        self.bqm_embedded = None
+        self.scaled_bqm_embedded = None
+        self.scale_factor = None
+        self.response = None
+        self.o = {}
     
     def Solve(self):
         pass
@@ -50,6 +57,12 @@ class D_Wave(Solver):
     
     def compute_bqm_embedded(self, Q, token):
         self.bqm = dimod.BinaryQuadraticModel.from_qubo(Q, offset=0).change_vartype("SPIN", True)
+        
+        interactions = list(self.bqm.quadratic.items())
+        for (u, v), coupling in interactions:
+            if coupling == 0:
+                self.bqm.remove_interaction(u, v)
+        
         couplings = []
         for k in list(self.bqm.quadratic.keys()):
             if k[0] != k[1]:
@@ -90,7 +103,6 @@ class D_Wave(Solver):
     def SAT_solution(self, real_encoding, clauses):
         solutions_bqm_embedded_df_aux = utils.unchain_dwave_solutions(self.response, real_encoding)
         solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
-        self.o = {}
         for _, row in solutions_bqm_embedded_df.iterrows():
             assigment = dict(row)
             o = utils.count_unsatisfied_clauses(assigment, clauses)
@@ -160,7 +172,6 @@ class Simulated_annealing(Solver):
     def SAT_solution(self, real_encoding, clauses):
         solutions_bqm_embedded_df_aux = utils.unchain_dwave_solutions(self.response, real_encoding)
         solutions_bqm_embedded_df = solutions_bqm_embedded_df_aux.loc[solutions_bqm_embedded_df_aux.index.repeat(solutions_bqm_embedded_df_aux.Occurrences)].reset_index(drop=True).drop(columns=['Occurrences'])
-        self.o = {}
         for _, row in solutions_bqm_embedded_df.iterrows():
             assigment = dict(row)
             o = utils.count_unsatisfied_clauses(assigment, clauses)
